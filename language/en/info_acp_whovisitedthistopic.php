@@ -40,5 +40,5 @@ $lang = array_merge($lang, array(
 	'WHOVISITEDTHISTOPIC_SETTING'				=> 'Set value for Who Visited This Topic',
 	'WHOVISITEDTHISTOPIC_SETTING_EXPLAIN'		=> 'Value adjustable from 2 till 255 members. <br /><em>Default is 10</em>',
 	'WHOVISITEDTHISTOPIC_VISIT_SETTING'			=> 'Set value for Last Topics Visited in profile',
-	'WHOVISITEDTHISTOPIC_VISIT_SETTING_EXPLAIN'	=> 'Value adjustable from 2 till 255 members. <br /><em>Default is 10</em>',
+	'WHOVISITEDTHISTOPIC_VISIT_SETTING_EXPLAIN'	=> 'Value adjustable from 2 till 255. <br /><em>Default is 10</em>',
 ));
