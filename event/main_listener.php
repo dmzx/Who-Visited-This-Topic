@@ -91,7 +91,7 @@ class main_listener implements EventSubscriberInterface
 		$userid_array = $event['user_ids'];
 		$cont = count($userid_array);
 
-		for($i=0;$i<$cont;$i++)
+		for ($i=0;$i<$cont;$i++)
 		{
 			$user_id=$userid_array[$i];
 			$sql = 'DELETE FROM ' . $this->whovisitedthistopic_table . '
@@ -218,7 +218,7 @@ class main_listener implements EventSubscriberInterface
 		$user_id = (int) $member['user_id'];
 		$value = $this->config['whovisitedthistopic_visit_value'];
 
-		if($this->auth->acl_get('u_whovisitedthistopic_profile'))
+		if ($this->auth->acl_get('u_whovisitedthistopic_profile'))
 		{
 			$this->template->assign_var('PERMISSION_PROFILE', true);
 
