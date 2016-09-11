@@ -39,5 +39,5 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'WHOVISITEDTHISTOPIC_PROFILE'		=> 'Last topics visited',
 	'WHOVISITEDTHISTOPIC_TITLE'			=> 'Last <strong>%d</strong> Members Who Visited This Topic',
-	'WHOVISITEDTHISTOPIC_VISIT_TITLE'		=> 'Last <strong>%d</strong> topics visited',
+	'WHOVISITEDTHISTOPIC_VISIT_TITLE'	=> 'Last <strong>%d</strong> topics visited',
 ));

@@ -1,14 +1,86 @@
 <!-- IF PERMISSION_PROFILE and .whovisitedthistopic -->
-<div class="panel bg1">
+<div class="forumbg">
 	<div class="inner">
-		<h3>{WHOVISITEDTHISTOPIC_VISIT_TITLE}</h3>
-		<div class="column1">
-			<dl>
-				<!-- BEGIN whovisitedthistopic -->
-					<dd><a href="{whovisitedthistopic.URL}">{whovisitedthistopic.TOPIC_TITLE}</a></dd>
-				<!-- END whovisitedthistopic -->
-			</dl>
-		</div>
+		<ul class="topiclist">
+			<li class="header">
+				<dl class="<!-- IF PHPBB_IS_32 -->row-item<!-- ELSE -->icon<!-- ENDIF -->">
+					<dt><div class="list-inner">{WHOVISITEDTHISTOPIC_VISIT_TITLE}</div></dt>
+					<dd class="posts">{L_REPLIES}</dd>
+					<dd class="views">{L_VIEWS}</dd>
+					<dd class="lastpost"><span>{L_LAST_POST}</span></dd>
+				</dl>
+			</li>
+		</ul>
+		<ul class="topiclist topics">
+		<!-- BEGIN whovisitedthistopic -->
+			<li class="row<!-- IF whovisitedthistopic.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+				<dl class="<!-- IF PHPBB_IS_32 -->row-item<!-- ELSE -->icon<!-- ENDIF --> {whovisitedthistopic.TOPIC_IMG_STYLE}">
+					<dt <!-- IF whovisitedthistopic.TOPIC_ICON_IMG -->style="background-image: url({T_ICONS_PATH}{whovisitedthistopic.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{whovisitedthistopic.TOPIC_FOLDER_IMG_ALT}">
+						<!-- IF whovisitedthistopic.S_UNREAD_TOPIC and not S_IS_BOT --><a href="{whovisitedthistopic.U_NEWEST_POST}" class="<!-- IF PHPBB_IS_32 -->row-item-link<!-- ELSE -->icon-link<!-- ENDIF -->"></a><!-- ENDIF -->
+						<div class="list-inner">
+							<!-- IF whovisitedthistopic.S_UNREAD_TOPIC and not S_IS_BOT -->
+								<a href="{whovisitedthistopic.U_NEWEST_POST}"><!-- IF PHPBB_IS_32 --><i class="icon fa-file fa-fw icon-red icon-md" aria-hidden="true"></i><span class="sr-only">{NEW_POST}</span><!-- ELSE -->{NEWEST_POST_IMG}<!-- ENDIF --></a>
+							<!-- ENDIF -->
+							<a href="{whovisitedthistopic.U_VIEW_TOPIC}" class="topictitle">{whovisitedthistopic.TOPIC_TITLE}</a> <!-- IF not PHPBB_IS_32 -->{whovisitedthistopic.ATTACH_ICON_IMG}<!-- ENDIF -->
+							<!-- IF whovisitedthistopic.S_TOPIC_UNAPPROVED or whovisitedthistopic.S_POSTS_UNAPPROVED -->
+								<a href="{whovisitedthistopic.U_MCP_QUEUE}"><!-- IF PHPBB_IS_32 --><i class="icon fa-question fa-fw icon-blue" aria-hidden="true"></i><span class="sr-only">{TOPIC_UNAPPROVED}</span><!-- ELSE -->{whovisitedthistopic.UNAPPROVED_IMG}<!-- ENDIF --></a>
+							<!-- ENDIF -->
+							<!-- IF whovisitedthistopic.S_TOPIC_REPORTED -->
+								<a href="{whovisitedthistopic.U_MCP_REPORT}"><!-- IF PHPBB_IS_32 --><i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i><span class="sr-only">{TOPIC_REPORTED}</span><!-- ELSE -->{REPORTED_IMG}<!-- ENDIF --></a>
+							<!-- ENDIF -->
+							<br />
+							<!-- IF PHPBB_IS_32 -->
+								<!-- IF not S_IS_BOT -->
+									<div class="responsive-show" style="display: none;">
+										{L_LAST_POST} {L_POST_BY_AUTHOR} {whovisitedthistopic.LAST_POST_AUTHOR_FULL} &laquo; <a href="{whovisitedthistopic.U_LAST_POST}" title="{L_GOTO_LAST_POST}">{whovisitedthistopic.LAST_POST_TIME}</a>
+										<br />{L_POSTED} {L_IN} <a href="{whovisitedthistopic.U_VIEW_FORUM}">{whovisitedthistopic.FORUM_TITLE}</a>
+									</div>
+									<!-- IF whovisitedthistopic.TOPIC_REPLIES --><span class="responsive-show left-box" style="display: none;">{L_REPLIES}{L_COLON} <strong>{whovisitedthistopic.TOPIC_REPLIES}</strong></span><!-- ENDIF -->
+								<!-- ENDIF -->
+
+								<div class="responsive-hide">
+									<!-- IF whovisitedthistopic.S_HAS_POLL --><i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i><!-- ENDIF -->
+									<!-- IF whovisitedthistopic.ATTACH_ICON_IMG --><i class="icon fa-paperclip fa-fw" aria-hidden="true"></i><!-- ENDIF -->
+									{L_POST_BY_AUTHOR} {whovisitedthistopic.TOPIC_AUTHOR_FULL} &raquo; {whovisitedthistopic.FIRST_POST_TIME} &raquo; {L_IN} <a href="{whovisitedthistopic.U_VIEW_FORUM}">{whovisitedthistopic.FORUM_TITLE}</a>
+								</div>
+							<!-- ELSE -->
+								<!-- IF whovisitedthistopic.S_HAS_POLL --><!-- IF PHPBB_IS_32 --><i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i><!-- ELSE -->{POLL_IMG}<!-- ENDIF --> <!-- ENDIF -->
+								<!-- IF whovisitedthistopic.ATTACH_ICON_IMG and PHPBB_IS_32 --><i class="icon fa-paperclip fa-fw" aria-hidden="true"></i><!-- ENDIF -->
+								{L_POST_BY_AUTHOR} {whovisitedthistopic.TOPIC_AUTHOR_FULL} &raquo; {whovisitedthistopic.FIRST_POST_TIME} &raquo; {L_IN} <a href="{whovisitedthistopic.U_VIEW_FORUM}">{whovisitedthistopic.FORUM_TITLE}</a>
+							<!-- ENDIF -->
+
+							<!-- IF .whovisitedthistopic.pagination -->
+							<div class="pagination">
+							<!-- IF PHPBB_IS_32 --><span><i class="icon fa-clone fa-fw" aria-hidden="true"></i></span><!-- ENDIF -->
+								<ul>
+								<!-- BEGIN pagination -->
+									<!-- IF whovisitedthistopic.pagination.S_IS_PREV -->
+									<!-- ELSEIF whovisitedthistopic.pagination.S_IS_CURRENT --><li class="active"><span>{whovisitedthistopic.pagination.PAGE_NUMBER}</span></li>
+									<!-- ELSEIF whovisitedthistopic.pagination.S_IS_ELLIPSIS --><li class="ellipsis"><span>{L_ELLIPSIS}</span></li>
+									<!-- ELSEIF whovisitedthistopic.pagination.S_IS_NEXT -->
+									<!-- ELSE --><li><a <!-- IF PHPBB_IS_32 -->class="button"<!-- ENDIF --> href="{whovisitedthistopic.pagination.PAGE_URL}">{whovisitedthistopic.pagination.PAGE_NUMBER}</a></li>
+									<!-- ENDIF -->
+								<!-- END pagination -->
+								</ul>
+							</div>
+							<!-- ENDIF -->
+
+						</div>
+					</dt>
+					<dd class="posts">{whovisitedthistopic.TOPIC_REPLIES} <!-- IF PHPBB_IS_32 --><dfn>{L_REPLIES}</dfn><!-- ENDIF --></dd>
+					<dd class="views">{whovisitedthistopic.TOPIC_VIEWS} <!-- IF PHPBB_IS_32 --><dfn>{L_VIEWS}</dfn><!-- ENDIF --></dd>
+					<dd class="lastpost">
+						<span><!-- IF PHPBB_IS_32 --><dfn>{L_LAST_POST} </dfn><!-- ENDIF -->{L_POST_BY_AUTHOR} {whovisitedthistopic.LAST_POST_AUTHOR_FULL}
+							<!-- IF not S_IS_BOT -->
+								<a href="{whovisitedthistopic.U_LAST_POST}" title="{L_GOTO_LAST_POST}"><!-- IF PHPBB_IS_32 --><i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">{VIEW_LATEST_POST}</span><!-- ELSE -->{LAST_POST_IMG}<!-- ENDIF --></a>
+							<!-- ENDIF -->
+							<br />{whovisitedthistopic.LAST_POST_TIME}
+						</span>
+					</dd>
+				</dl>
+			</li>
+		<!-- END whovisitedthistopic -->
+		</ul>
 	</div>
 </div>
 <!-- ENDIF -->

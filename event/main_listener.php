@@ -25,11 +25,23 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\user */
 	protected $user;
 
+	/** @var \phpbb\request\request */
+	protected $request;
+
+	/** @var \phpbb\content_visibility */
+	protected $content_visibility;
+
+	/** @var \phpbb\cache\service */
+	protected $cache;
+
+	/** @var \phpbb\pagination */
+	protected $pagination;
+
 	/** @var string */
 	protected $whovisitedthistopic_table;
 
 	/** @var string */
-	protected $phpbb_root_path;
+	protected $root_path;
 
 	/** @var string */
 	protected $phpEx;
@@ -40,6 +52,9 @@ class main_listener implements EventSubscriberInterface
 	/** @var string phpBB admin path */
 	protected $phpbb_admin_path;
 
+	/** @var \phpbb\files\factory */
+	protected $files_factory;
+
 	/**
 	* Constructor
 	*
@@ -47,11 +62,16 @@ class main_listener implements EventSubscriberInterface
 	* @param \phpbb\template					$template
 	* @param \phpbb\db\driver\driver_interface	$db
 	* @param \phpbb\user						$user
-	* @param									$phpbb_root_path
+	* @param \phpbb\request\request				$request
+	* @param \phpbb\content_visibility			$content_visibility
+	* @param \phpbb\cache\service				$cache
+	* @param \phpbb\pagination					$pagination
+	* @param									$root_path
 	* @param									$phpEx
 	* @param									$whovisitedthistopic_table
 	* @param \phpbb\auth\auth					$auth
 	* @param									$phpbb_admin_path
+	* @param \phpbb\files\factory				$files_factory
 	*
 	*/
 	public function __construct(
@@ -59,21 +79,31 @@ class main_listener implements EventSubscriberInterface
 		\phpbb\template\template $template,
 		\phpbb\db\driver\driver_interface $db,
 		\phpbb\user $user,
-		$phpbb_root_path,
+		\phpbb\request\request $request,
+		\phpbb\content_visibility $content_visibility,
+		\phpbb\cache\service $cache,
+		\phpbb\pagination $pagination,
+		$root_path,
 		$phpEx,
 		$whovisitedthistopic_table,
 		\phpbb\auth\auth $auth,
-		$phpbb_admin_path)
+		$phpbb_admin_path,
+		\phpbb\files\factory $files_factory = null)
 	{
-		$this->config 				= $config;
-		$this->template 			= $template;
-		$this->db 					= $db;
-		$this->user 				= $user;
-		$this->phpbb_root_path 		= $phpbb_root_path;
-		$this->phpEx				= $phpEx;
-		$this->whovisitedthistopic_table 			= $whovisitedthistopic_table;
-		$this->auth 				= $auth;
-		$this->phpbb_admin_path 	= $phpbb_admin_path;
+		$this->config 						= $config;
+		$this->template 					= $template;
+		$this->db 							= $db;
+		$this->user 						= $user;
+		$this->request 						= $request;
+		$this->content_visibility 			= $content_visibility;
+		$this->cache 						= $cache;
+		$this->pagination 					= $pagination;
+		$this->root_path 					= $root_path;
+		$this->phpEx						= $phpEx;
+		$this->whovisitedthistopic_table 	= $whovisitedthistopic_table;
+		$this->auth 						= $auth;
+		$this->phpbb_admin_path 			= $phpbb_admin_path;
+		$this->files_factory 				= $files_factory;
 	}
 
 	static public function getSubscribedEvents()
@@ -91,7 +121,7 @@ class main_listener implements EventSubscriberInterface
 		$userid_array = $event['user_ids'];
 		$cont = count($userid_array);
 
-		for ($i=0; $i<$cont; $i++)
+		for($i=0;$i<$cont;$i++)
 		{
 			$user_id=$userid_array[$i];
 			$sql = 'DELETE FROM ' . $this->whovisitedthistopic_table . '
@@ -182,7 +212,7 @@ class main_listener implements EventSubscriberInterface
 					$visits = null;
 				}
 
-				$url = "{$this->phpbb_root_path}memberlist.{$this->phpEx}?mode=viewprofile&u={$user_id}";
+				$url = append_sid("{$this->root_path}memberlist.{$this->phpEx}?mode=viewprofile&u={$user_id}");
 
 				$this->template->assign_block_vars('whovisitedthistopic',array(
 					'USERNAME'			=> $username,
@@ -217,36 +247,118 @@ class main_listener implements EventSubscriberInterface
 		$member = $event['member'];
 		$user_id = (int) $member['user_id'];
 		$value = $this->config['whovisitedthistopic_visit_value'];
+		$start = $this->request->variable('start', 0);
 
 		if ($this->auth->acl_get('u_whovisitedthistopic_profile'))
 		{
 			$this->template->assign_var('PERMISSION_PROFILE', true);
 
-			$sql_list = 'SELECT tt.topic_id, tt.topic_title, ft.forum_id
-				FROM ' . FORUMS_TABLE . ' ft, ' . TOPICS_TABLE . ' tt, ' . $this->whovisitedthistopic_table . ' wt
-				WHERE tt.topic_moved_id = 0
-					AND tt.topic_visibility = 1
-					AND wt.user_id = ' . $user_id . '
-					AND wt.topic_id = tt.topic_id
-					AND ft.forum_id = tt.forum_id
-				ORDER BY wt.date DESC';
-			$sql_list_query = $this->db->sql_query_limit($sql_list, $value);
+			$sql_list = array(
+				'SELECT'	=> 'ft.*, tt.*, wt.*',
+				'FROM'		=> array(
+					FORUMS_TABLE	=> 'ft',
+					TOPICS_TABLE	=> 'tt',
+					$this->whovisitedthistopic_table	=> 'wt',
+				),
+				'WHERE' => 'tt.topic_moved_id = 0 AND tt.topic_visibility = 1 AND wt.user_id = ' . $user_id . '	AND wt.topic_id = tt.topic_id AND ft.forum_id = tt.forum_id',
+				'ORDER_BY'	=> 'wt.date DESC',
+			);
 
-			while ($sql_list = $this->db->sql_fetchrow($sql_list_query))
+			if ($this->user->data['is_registered'] && $this->config['load_db_lastread'])
+			{
+				$sql_list['LEFT_JOIN'][] = array('FROM' => array(TOPICS_TRACK_TABLE => 'ttt'), 'ON' => 'ttt.topic_id = tt.topic_id AND ttt.user_id = ' . $this->user->data['user_id']);
+				$sql_list['LEFT_JOIN'][] = array('FROM' => array(FORUMS_TRACK_TABLE => 'ftt'), 'ON' => 'ftt.forum_id = ft.forum_id AND ftt.user_id = ' . $this->user->data['user_id']);
+				$sql_list['SELECT'] .= ', ttt.mark_time, ftt.mark_time as f_mark_time';
+			}
+			else if ($this->config['load_anon_lastread'] || $this->user->data['is_registered'])
+			{
+				$tracking_topics = $this->request->variable($this->config['cookie_name'] . '_track', '', true, \phpbb\request\request_interface::COOKIE);
+				$tracking_topics = $tracking_topics ? tracking_unserialize($tracking_topics) : array();
+			}
+			$sql_list_query = $this->db->sql_build_query('SELECT', $sql_list);
+			$result = $this->db->sql_query_limit($sql_list_query, $value);
+
+			$icons = $this->cache->obtain_icons();
+			$rowset = array();
+
+			while ($sql_list = $this->db->sql_fetchrow($result))
 			{
 				$topic_id = $sql_list['topic_id'];
-				$topic_title = $sql_list['topic_title'];
-				$url = "{$this->phpbb_root_path}viewtopic.{$this->phpEx}?t={$topic_id}";
+				$forum_id = $sql_list['forum_id'];
+				$rowset[$topic_id] = $sql_list;
+
+				if ($this->user->data['is_registered'] && $this->config['load_db_lastread'] && !$this->config['similar_topics_cache'])
+				{
+					$topic_tracking_info = get_topic_tracking($forum_id, $topic_id, $rowset, array($forum_id => $sql_list['f_mark_time']));
+				}
+				else if ($this->config['load_anon_lastread'] || $this->user->data['is_registered'])
+				{
+					$topic_tracking_info = get_complete_topic_tracking($forum_id, $topic_id);
+					if (!$this->user->data['is_registered'])
+					{
+						$this->user->data['user_lastmark'] = isset($tracking_topics['l']) ? ((int) base_convert($tracking_topics['l'], 36, 10) + (int) $this->config['board_startdate']) : 0;
+					}
+				}
+
+				$replies = $this->content_visibility->get_count('topic_posts', $sql_list, $forum_id) - 1;
+
+				$folder_img = $folder_alt = $topic_type = '';
+				$unread_topic = isset($topic_tracking_info[$topic_id]) && $sql_list['topic_last_post_time'] > $topic_tracking_info[$topic_id];
+				topic_status($sql_list, $replies, $unread_topic, $folder_img, $folder_alt, $topic_type);
+
+				$topic_unapproved = $sql_list['topic_visibility'] == ITEM_UNAPPROVED && $this->auth->acl_get('m_approve', $similar_forum_id);
+				$posts_unapproved = $sql_list['topic_visibility'] == ITEM_APPROVED && $sql_list['topic_posts_unapproved'] && $this->auth->acl_get('m_approve', $similar_forum_id);
+				$u_mcp_queue = ($topic_unapproved || $posts_unapproved) ? append_sid("{$this->root_path}mcp.{$this->phpEx}", 'i=queue&amp;mode=' . ($topic_unapproved ? 'approve_details' : 'unapproved_posts') . "&amp;t=$topic_id", true, $this->user->session_id) : '';
+
+				$base_url = append_sid("{$this->root_path}viewtopic.{$this->phpEx}", 'f=' . $forum_id . '&amp;t=' . $topic_id);
 
 				$this->template->assign_block_vars('whovisitedthistopic',array(
-					'TOPIC_TITLE'		=> $topic_title,
-					'URL'				=> $url,
+					'TOPIC_REPLIES'			=> $replies,
+					'TOPIC_VIEWS'			=> $sql_list['topic_views'],
+					'TOPIC_TITLE'			=> censor_text($sql_list['topic_title']),
+					'FORUM_TITLE'			=> $sql_list['forum_name'],
+
+					'TOPIC_AUTHOR_FULL'		=> get_username_string('full', $sql_list['topic_poster'], $sql_list['topic_first_poster_name'], $sql_list['topic_first_poster_colour']),
+					'FIRST_POST_TIME'		=> $this->user->format_date($sql_list['topic_time']),
+					'LAST_POST_TIME'		=> $this->user->format_date($sql_list['topic_last_post_time']),
+					'LAST_POST_AUTHOR_FULL'	=> get_username_string('full', $sql_list['topic_last_poster_id'], $sql_list['topic_last_poster_name'], $sql_list['topic_last_poster_colour']),
+
+					'S_HAS_POLL'			=> (bool) $sql_list['poll_start'],
+
+					'S_TOPIC_REPORTED'		=> !empty($sql_list['topic_reported']) && $this->auth->acl_get('m_report', $forum_id),
+					'S_TOPIC_UNAPPROVED'	=> $topic_unapproved,
+					'S_POSTS_UNAPPROVED'	=> $posts_unapproved,
+					'S_UNREAD_TOPIC'		=> $unread_topic,
+
+					'TOPIC_ICON_IMG'		=> (!empty($icons[$sql_list['icon_id']])) ? $icons[$sql_list['icon_id']]['img'] : '',
+					'TOPIC_ICON_IMG_WIDTH'	=> (!empty($icons[$sql_list['icon_id']])) ? $icons[$sql_list['icon_id']]['width'] : '',
+					'TOPIC_ICON_IMG_HEIGHT'	=> (!empty($icons[$sql_list['icon_id']])) ? $icons[$sql_list['icon_id']]['height'] : '',
+					'ATTACH_ICON_IMG'		=> ($this->auth->acl_get('u_download') && $this->auth->acl_get('f_download', $forum_id) && $sql_list['topic_attachment']) ? $this->user->img('icon_topic_attach', $this->user->lang('TOTAL_ATTACHMENTS')) : '',
+					'UNAPPROVED_IMG'		=> ($topic_unapproved || $posts_unapproved) ? $this->user->img('icon_topic_unapproved', $topic_unapproved ? 'TOPIC_UNAPPROVED' : 'POSTS_UNAPPROVED') : '',
+
+					'TOPIC_IMG_STYLE'		=> $folder_img,
+					'TOPIC_FOLDER_IMG'		=> $this->user->img($folder_img, $folder_alt),
+					'TOPIC_FOLDER_IMG_ALT'	=> $this->user->lang($folder_alt),
+
+					'U_NEWEST_POST'			=> append_sid("{$this->root_path}viewtopic.{$this->phpEx}", 'f=' . $forum_id . '&amp;t=' . $topic_id . '&amp;view=unread') . '#unread',
+					'U_LAST_POST'			=> append_sid("{$this->root_path}viewtopic.{$this->phpEx}", 'f=' . $forum_id . '&amp;t=' . $topic_id . '&amp;p=' . $sql_list['topic_last_post_id']) . '#p' . $sql_list['topic_last_post_id'],
+					'U_VIEW_TOPIC'			=> append_sid("{$this->root_path}viewtopic.{$this->phpEx}", 'f=' . $forum_id . '&amp;t=' . $topic_id),
+					'U_VIEW_FORUM'			=> append_sid("{$this->root_path}viewforum.{$this->phpEx}", 'f=' . $forum_id),
+					'U_MCP_REPORT'			=> append_sid("{$this->root_path}mcp.{$this->phpEx}", 'i=reports&amp;mode=reports&amp;f=' . $forum_id . '&amp;t=' . $topic_id, true, $this->user->session_id),
+					'U_MCP_QUEUE'			=> $u_mcp_queue,
 				));
+
+				$this->pagination->generate_template_pagination($base_url, 'whovisitedthistopic.pagination', 'start', $replies + 1, $this->config['posts_per_page'], 1, true, true);
 			}
 		}
 
 		$this->template->assign_vars(array(
 			'WHOVISITEDTHISTOPIC_VISIT_TITLE'	=> $this->user->lang('WHOVISITEDTHISTOPIC_VISIT_TITLE', $value),
+			'NEWEST_POST_IMG'	=> $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'),
+			'LAST_POST_IMG'		=> $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
+			'REPORTED_IMG'		=> $this->user->img('icon_topic_reported', 'TOPIC_REPORTED'),
+			'POLL_IMG'			=> $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
+			'PHPBB_IS_32'		=> ($this->files_factory !== null) ? true : false,
 		));
 	}
 }

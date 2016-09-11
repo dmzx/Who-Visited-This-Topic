@@ -22,6 +22,7 @@ class install_whovisitedthistopic extends \phpbb\db\migration\migration
 			// Add configs
 			array('config.add', array('whovisitedthistopic_value', 10)),
 			array('config.add', array('whovisitedthistopic_visit_value', 10)),
+			array('config.add', array('whovisitedthistopic_version', '1.0.1')),
 			// Permissions
 			array('permission.add', array('u_whovisitedthistopic', true)),
 			array('permission.add', array('u_whovisitedthistopic_count', true)),

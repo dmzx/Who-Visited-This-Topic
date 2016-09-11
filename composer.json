@@ -3,8 +3,8 @@
 	"type": "phpbb-extension",
 	"description": "Shows the users who have visited a topic and the times they have visited.",
 	"homepage": "http://www.dmzx-web.net",
-	"version": "1.0.0",
-	"time": "2016-09-10",
+	"version": "1.0.1",
+	"time": "2016-09-11",
 	"keywords": ["phpbb", "extension", "whovisitedthistopic"],
 	"license": "GPL-2.0",
 	"authors": [
@@ -24,7 +24,7 @@
 	"extra": {
 		"display-name": "Who Visited This Topic",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.1.0,<3.2.0@dev"
+			"phpbb/phpbb": ">=3.1.0,<3.3.0@dev"
 		},
 		"version-check": {
 			"host": "www.dmzx-web.net",
