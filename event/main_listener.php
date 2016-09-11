@@ -121,7 +121,7 @@ class main_listener implements EventSubscriberInterface
 		$userid_array = $event['user_ids'];
 		$cont = count($userid_array);
 
-		for($i=0;$i<$cont;$i++)
+		for ($i=0; $i<$cont; $i++)
 		{
 			$user_id=$userid_array[$i];
 			$sql = 'DELETE FROM ' . $this->whovisitedthistopic_table . '
