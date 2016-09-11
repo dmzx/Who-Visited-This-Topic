@@ -1,0 +1,35 @@
+{
+	"name": "dmzx/whovisitedthistopic",
+	"type": "phpbb-extension",
+	"description": "Shows the users who have visited a topic and the times they have visited.",
+	"homepage": "http://www.dmzx-web.net",
+	"version": "1.0.0",
+	"time": "2016-09-10",
+	"keywords": ["phpbb", "extension", "whovisitedthistopic"],
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "dmzx",
+			"homepage": "http://www.dmzx-web.net",
+			"email": "info@dmzx-web.net",
+			"role": "Extension Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.3.3"
+	},
+	"require-dev": {
+		"phpbb/epv": "dev-master"
+	},
+	"extra": {
+		"display-name": "Who Visited This Topic",
+		"soft-require": {
+			"phpbb/phpbb": ">=3.1.0,<3.2.0@dev"
+		},
+		"version-check": {
+			"host": "www.dmzx-web.net",
+			"directory": "/versions",
+			"filename": "whovisitedthistopic_version.json"
+		}
+	}
+}

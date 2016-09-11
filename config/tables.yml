@@ -1,0 +1,2 @@
+parameters:
+    dmzx.whovisitedthistopic.tables.whovisitedthistopic: %core.table_prefix%whovisitedthistopic
