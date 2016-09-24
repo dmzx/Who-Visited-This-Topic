@@ -22,21 +22,28 @@ class install_whovisitedthistopic extends \phpbb\db\migration\migration
 			// Add configs
 			array('config.add', array('whovisitedthistopic_value', 10)),
 			array('config.add', array('whovisitedthistopic_visit_value', 10)),
-			array('config.add', array('whovisitedthistopic_version', '1.0.1')),
+			array('config.add', array('whovisitedthistopic_version', '1.0.2')),
 			// Permissions
 			array('permission.add', array('u_whovisitedthistopic', true)),
 			array('permission.add', array('u_whovisitedthistopic_count', true)),
 			array('permission.add', array('u_whovisitedthistopic_profile', true)),
 			// Set Permissions
 			array('permission.permission_set', array('REGISTERED', 'u_whovisitedthistopic', 'group', true)),
-			array('permission.permission_set', array('ROLE_USER_STANDARD', 'u_whovisitedthistopic', 'rule', true)),
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'u_whovisitedthistopic', 'rule', true)),
 			array('permission.permission_set', array('REGISTERED', 'u_whovisitedthistopic_count', 'group', true)),
-			array('permission.permission_set', array('ROLE_USER_STANDARD', 'u_whovisitedthistopic_count', 'rule', true)),
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'u_whovisitedthistopic_count', 'rule', true)),
 			array('permission.permission_set', array('REGISTERED', 'u_whovisitedthistopic_profile', 'group', true)),
-			array('permission.permission_set', array('ROLE_USER_STANDARD', 'u_whovisitedthistopic_profile', 'rule', true)),
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'u_whovisitedthistopic_profile', 'rule', true)),
+
+			array('module.add', array(
+				'acp',
+				'ACP_CAT_DOT_MODS',
+				'ACP_WHOVISITEDTHISTOPIC_TITLE'
+			)),
+			array('module.add', array(
+				'acp',
+				'ACP_WHOVISITEDTHISTOPIC_TITLE',
+				array(
+					'module_basename'	=> '\dmzx\whovisitedthistopic\acp\acp_whovisitedthistopic_module',
+				),
+			)),
 		);
 	}
 

@@ -1,8 +1,35 @@
 imports:
     - { resource: tables.yml }
+parameters:
+    whovisitedthistopic.version_data:
+        author: dmzx
+        title: Who Visited This Topic
+        version: whovisitedthistopic_version
+        file:
+            - www.dmzx-web.net
+            - /versions
+            - whovisitedthistopic_version.json
 services:
+    dmzx.whovisitedthistopic.version.check:
+        class: dmzx\whovisitedthistopic\includes\version_check
+        scope: prototype
+        arguments:
+            - '%whovisitedthistopic.version_data%'
+            - '@config'
+            - '@version_helper'
+            - '@template'
+            - '@user'
+    dmzx.whovisitedthistopic.admin.controller:
+        class: dmzx\whovisitedthistopic\controller\admin_controller
+        arguments:
+            - '@config'
+            - '@template'
+            - '@log'
+            - '@user'
+            - '@service_container'
+            - '@request'
     dmzx.whovisitedthistopic.listener:
-        class: dmzx\whovisitedthistopic\event\main_listener
+        class: dmzx\whovisitedthistopic\event\listener
         arguments:
             - '@config'
             - '@template'
@@ -19,8 +46,4 @@ services:
             - '%core.adm_relative_path%'
             - '@?files.factory'
         tags:
-            - { name: event.listener }
-    dmzx.whovisitedthistopic.acplistener:
-        class: dmzx\whovisitedthistopic\event\acp_listener
-        tags:
-            - { name: event.listener }   
+            - { name: event.listener } 

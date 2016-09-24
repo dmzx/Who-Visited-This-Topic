@@ -11,7 +11,7 @@ namespace dmzx\whovisitedthistopic\event;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class main_listener implements EventSubscriberInterface
+class listener implements EventSubscriberInterface
 {
 	/** @var \phpbb\config\config */
 	protected $config;
@@ -109,11 +109,22 @@ class main_listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.delete_user_after'				=> 'delete_user_view',
-			'core.permissions'						=> 'permissions',
-			'core.viewtopic_get_post_data'			=> 'viewtopic_get_post_data',
-			'core.memberlist_view_profile'			=> 'memberlist_view_profile'
+			'core.user_setup'					=> 'load_language_on_setup',
+			'core.delete_user_after'			=> 'delete_user_view',
+			'core.permissions'					=> 'permissions',
+			'core.viewtopic_get_post_data'		=> 'viewtopic_get_post_data',
+			'core.memberlist_view_profile'		=> 'memberlist_view_profile'
 		);
+	}
+
+	public function load_language_on_setup($event)
+	{
+		$lang_set_ext = $event['lang_set_ext'];
+		$lang_set_ext[] = array(
+			'ext_name' => 'dmzx/whovisitedthistopic',
+			'lang_set' => 'common',
+		);
+		$event['lang_set_ext'] = $lang_set_ext;
 	}
 
 	public function delete_user_view($event)
@@ -121,11 +132,11 @@ class main_listener implements EventSubscriberInterface
 		$userid_array = $event['user_ids'];
 		$cont = count($userid_array);
 
-		for ($i=0; $i<$cont; $i++)
+		for($i=0; $i<$cont; $i++)
 		{
-			$user_id=$userid_array[$i];
+			$user_id = $userid_array[$i];
 			$sql = 'DELETE FROM ' . $this->whovisitedthistopic_table . '
-				WHERE user_id = ' . $user_id . '';
+				WHERE user_id = ' . (int) $user_id . '';
 			$this->db->sql_query($sql);
 		}
 	}
@@ -133,16 +144,27 @@ class main_listener implements EventSubscriberInterface
 	public function permissions($event)
 	{
 		$permissions = $event['permissions'];
-		$permissions['u_whovisitedthistopic'] = array('lang' => 'ACL_U_WHOVISITEDTHISTOPIC', 'cat' => 'misc');
-		$permissions['u_whovisitedthistopic_count'] = array('lang' => 'ACL_U_WHOVISITEDTHISTOPIC_COUNT', 'cat' => 'misc');
-		$permissions['u_whovisitedthistopic_profile'] = array('lang' => 'ACL_U_WHOVISITEDTHISTOPIC_PROFILE', 'cat' => 'misc');
+		$permissions += array(
+			'u_whovisitedthistopic'		=> array(
+				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC',
+				'cat'		=> 'whovisitedthistopic'
+			),
+			'u_whovisitedthistopic_count'	=> array(
+				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC_COUNT',
+				'cat'		=> 'whovisitedthistopic'
+			),
+			'u_whovisitedthistopic_profile'	=> array(
+				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC_PROFILE',
+				'cat'		=> 'whovisitedthistopic'
+			),
+		);
 		$event['permissions'] = $permissions;
+		$categories['whovisitedthistopic'] = 'WHOVISITEDTHISTOPIC_INDEX';
+		$event['categories'] = array_merge($event['categories'], $categories);
 	}
 
 	public function viewtopic_get_post_data($event)
 	{
-		$this->user->add_lang_ext('dmzx/whovisitedthistopic', 'common');
-
 		$topic_id = $event['topic_id'];
 		$user_id = $this->user->data['user_id'];
 		$value = $this->config['whovisitedthistopic_value'];
@@ -189,7 +211,7 @@ class main_listener implements EventSubscriberInterface
 		{
 			$query = 'SELECT w.user_id, w.topic_id, w.counter_user, w.date, u.username, u.user_colour, u.user_id, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, u.user_type, SUM(w.counter_user) AS total
 				FROM ' . $this->whovisitedthistopic_table . ' w, ' . USERS_TABLE . ' u
-				WHERE w.topic_id = ' . $topic_id . '
+				WHERE w.topic_id = ' . (int) $topic_id . '
 					AND w.user_id = u.user_id
 				GROUP BY w.user_id
 				ORDER BY w.date DESC';
@@ -242,8 +264,6 @@ class main_listener implements EventSubscriberInterface
 
 	public function memberlist_view_profile($event)
 	{
-		$this->user->add_lang_ext('dmzx/whovisitedthistopic', 'common');
-
 		$member = $event['member'];
 		$user_id = (int) $member['user_id'];
 		$value = $this->config['whovisitedthistopic_visit_value'];

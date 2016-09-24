@@ -32,11 +32,12 @@ if (empty($lang) || !is_array($lang))
 // equally where a string contains only two placeholders which are used to wrap text
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 //
-// Some characters for use
-// ’ » “ ” …
+// Some characters you may want to copy&paste:
+// ’ « » “ ” …
+//
 
 $lang = array_merge($lang, array(
-	'ACL_U_WHOVISITEDTHISTOPIC'				=> 'Can view Who Visited A Topic',
-	'ACL_U_WHOVISITEDTHISTOPIC_COUNT'		=> 'Can view Who Visited A Topic counter',
+	'ACL_U_WHOVISITEDTHISTOPIC'				=> 'Can use Who Visited A Topic',
+	'ACL_U_WHOVISITEDTHISTOPIC_COUNT'		=> 'Can view Who Visited A Topic counter in topics',
 	'ACL_U_WHOVISITEDTHISTOPIC_PROFILE'		=> 'Can view Who Visited A Topic in profile',
 ));

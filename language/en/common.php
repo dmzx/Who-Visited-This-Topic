@@ -37,7 +37,23 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'WHOVISITEDTHISTOPIC_PROFILE'		=> 'Last topics visited',
-	'WHOVISITEDTHISTOPIC_TITLE'			=> 'Last <strong>%d</strong> Members Who Visited This Topic',
-	'WHOVISITEDTHISTOPIC_VISIT_TITLE'	=> 'Last <strong>%d</strong> topics visited',
+	'WHOVISITEDTHISTOPIC_INDEX'						=> 'Who Visited This Topic',
+	'WHOVISITEDTHISTOPIC_PROFILE'					=> 'Last topics visited',
+	'WHOVISITEDTHISTOPIC_TITLE'						=> 'Last <strong>%d</strong> Members Who Visited This Topic',
+	'WHOVISITEDTHISTOPIC_SETTING'					=> 'Set value for Who Visited This Topic in topics',
+	'WHOVISITEDTHISTOPIC_SETTING_EXPLAIN'			=> 'Value adjustable from 2 till 255 members. <br /><em>Default is 10</em>',
+	'WHOVISITEDTHISTOPIC_VISIT_SETTING'				=> 'Set value for Last Topics Visited in profile',
+	'WHOVISITEDTHISTOPIC_VISIT_SETTING_EXPLAIN'		=> 'Value adjustable from 2 till 255. <br /><em>Default is 10</em>',
+	'WHOVISITEDTHISTOPIC_VISIT_TITLE'				=> 'Last <strong>%d</strong> topics visited',
+	'WHOVISITEDTHISTOPIC_VERSION_CHECK'				=> 'Who Visited This Topic Version Check',
+	'WHOVISITEDTHISTOPIC_AUTHOR'					=> 'Author',
+	'WHOVISITEDTHISTOPIC_ANNOUNCEMENT_TOPIC'		=> 'Release Announcement',
+	'WHOVISITEDTHISTOPIC_CURRENT_VERSION'			=> 'Current Version',
+	'WHOVISITEDTHISTOPIC_DOWNLOAD_LATEST'			=> 'Download Latest Version',
+	'WHOVISITEDTHISTOPIC_DOWNLOAD'					=> 'Download',
+	'WHOVISITEDTHISTOPIC_LATEST_VERSION'			=> 'Latest Version',
+	'WHOVISITEDTHISTOPIC_NOT_UP_TO_DATE'			=> '%s is not up to date',
+	'WHOVISITEDTHISTOPIC_RELEASE_ANNOUNCEMENT'		=> 'Announcement Topic',
+	'WHOVISITEDTHISTOPIC_UP_TO_DATE'				=> '%s is up to date',
+	'WHOVISITEDTHISTOPIC_SAVED'						=> '<strong>Who Visited This Topic settings saved</strong>',
 ));

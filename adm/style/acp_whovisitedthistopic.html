@@ -1,0 +1,72 @@
+<!-- INCLUDECSS acp_whovisitedthistopic.css -->
+<!-- INCLUDE overall_header.html -->
+<!-- INCLUDEJS acp_whovisitedthistopic.js -->
+
+<div id="WhoVisitedThisTopic"></div>
+
+<h1>{L_ACP_WHOVISITEDTHISTOPIC_TITLE}</h1>
+
+<!-- IF S_ERROR -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{ERROR_MSG}</p>
+	</div>
+<!-- ENDIF -->
+
+<!-- BEGIN ext_update -->
+<fieldset>
+	<legend>{L_WHOVISITEDTHISTOPIC_VERSION_CHECK}</legend>
+	<p style="font-weight: bold; color: <!-- IF ext_update.WHOVISITEDTHISTOPIC_S_UP_TO_DATE -->#228822<!-- ELSE -->#BC2A4D<!-- ENDIF -->;">{ext_update.WHOVISITEDTHISTOPIC_UP_TO_DATE}</p>
+	<dl>
+		<dt><label>{L_WHOVISITEDTHISTOPIC_CURRENT_VERSION}{L_COLON}</label></dt>
+		<dd><strong>{ext_update.WHOVISITEDTHISTOPIC_CURRENT_VERSION}</strong></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_WHOVISITEDTHISTOPIC_LATEST_VERSION}{L_COLON}</label></dt>
+		<dd><strong>{ext_update.WHOVISITEDTHISTOPIC_LATEST_VERSION}</strong></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_WHOVISITEDTHISTOPIC_AUTHOR}{L_COLON}</label></dt>
+		<dd><strong>{ext_update.WHOVISITEDTHISTOPIC_AUTHOR}</strong></dd>
+	</dl>
+	<!-- IF not ext_update.WHOVISITEDTHISTOPIC_S_UP_TO_DATE -->
+		<dl>
+			<dt><label>{L_WHOVISITEDTHISTOPIC_DOWNLOAD_LATEST}{L_COLON}</label></dt>
+			<dd><strong><a href="{ext_update.WHOVISITEDTHISTOPIC_DOWNLOAD}">{L_WHOVISITEDTHISTOPIC_DOWNLOAD} {ext_update.WHOVISITEDTHISTOPIC_TITLE} {ext_update.WHOVISITEDTHISTOPIC_LATEST_VERSION}</a></strong></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_WHOVISITEDTHISTOPIC_ANNOUNCEMENT_TOPIC}{L_COLON}</label></dt>
+			<dd><strong><a href="{ext_update.WHOVISITEDTHISTOPIC_ANNOUNCEMENT}">{L_WHOVISITEDTHISTOPIC_RELEASE_ANNOUNCEMENT}</a></strong></dd>
+		</dl>
+	<!-- ENDIF -->
+</fieldset>
+<!-- END ext_update -->
+
+<form id="acp_board" method="post" action="{U_ACTION}">
+	<fieldset>
+		<legend>{L_ACP_WHOVISITEDTHISTOPIC_SETTINGS}</legend>
+		<dl>
+			<dt>
+				<label for="whovisitedthistopic_value">{L_WHOVISITEDTHISTOPIC_SETTING}{L_COLON}</label><br />
+				<span>{L_WHOVISITEDTHISTOPIC_SETTING_EXPLAIN}</span></dt>
+			</dt>
+			<dd><input type="number" id="whovisitedthistopic_value"	name="whovisitedthistopic_value" size="3" maxlength="3" min="2" max="255" value="{WHOVISITEDTHISTOPIC_SETTING}" /></dd>
+		</dl>
+		<dl>
+			<dt>
+				<label for="whovisitedthistopic_visit_value">{L_WHOVISITEDTHISTOPIC_VISIT_SETTING}{L_COLON}</label><br />
+				<span>{L_WHOVISITEDTHISTOPIC_VISIT_SETTING_EXPLAIN}</span></dt>
+			</dt>
+			<dd><input type="number" id="whovisitedthistopic_visit_value"	name="whovisitedthistopic_visit_value" size="3" maxlength="3" min="2" max="255" value="{WHOVISITEDTHISTOPIC_VISIT_SETTING}" /></dd>
+		</dl>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<legend>{L_SUBMIT}</legend>
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />
+	</fieldset>
+
+	{S_FORM_TOKEN}
+</form>
+
+<!-- INCLUDE overall_footer.html -->

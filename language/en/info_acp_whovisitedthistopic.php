@@ -33,12 +33,11 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 //
 // Some characters you may want to copy&paste:
-// ’ » “ ” …
+// ’ « » “ ” …
 //
 
 $lang = array_merge($lang, array(
-	'WHOVISITEDTHISTOPIC_SETTING'				=> 'Set value for Who Visited This Topic',
-	'WHOVISITEDTHISTOPIC_SETTING_EXPLAIN'		=> 'Value adjustable from 2 till 255 members. <br /><em>Default is 10</em>',
-	'WHOVISITEDTHISTOPIC_VISIT_SETTING'			=> 'Set value for Last Topics Visited in profile',
-	'WHOVISITEDTHISTOPIC_VISIT_SETTING_EXPLAIN'	=> 'Value adjustable from 2 till 255. <br /><em>Default is 10</em>',
+	'ACP_WHOVISITEDTHISTOPIC_TITLE'				=> 'Who Visited This Topic',
+	'ACP_WHOVISITEDTHISTOPIC_SETTINGS'			=> 'Settings',
+	'ACP_WHOVISITEDTHISTOPIC_OPTIONS_SAVED'		=> 'Who Visited This Topic options has been saved.',
 ));
