@@ -47,17 +47,37 @@
 		<legend>{L_ACP_WHOVISITEDTHISTOPIC_SETTINGS}</legend>
 		<dl>
 			<dt>
+				<label for="whovisitedthistopic_allow_topics">{L_WHOVISITEDTHISTOPIC_TOPIC_SETTINGS}{L_COLON}</label><br />
+				<span>{L_WHOVISITEDTHISTOPIC_TOPIC_SETTINGS_EXPLAIN}</span></dt>
+			</dt>
+			<dd>
+				<label><input type="radio" id="whovisitedthistopic_allow_topics" class="radio" name="whovisitedthistopic_allow_topics" value="1"<!-- IF WHOVISITEDTHISTOPIC_ALLOW_TOPICS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label><input type="radio" class="radio" name="whovisitedthistopic_allow_topics" value="0"<!-- IF not WHOVISITEDTHISTOPIC_ALLOW_TOPICS	--> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+			</dd>
+		</dl>
+		<dl>
+			<dt>
 				<label for="whovisitedthistopic_value">{L_WHOVISITEDTHISTOPIC_SETTING}{L_COLON}</label><br />
 				<span>{L_WHOVISITEDTHISTOPIC_SETTING_EXPLAIN}</span></dt>
 			</dt>
-			<dd><input type="number" id="whovisitedthistopic_value"	name="whovisitedthistopic_value" size="3" maxlength="3" min="2" max="255" value="{WHOVISITEDTHISTOPIC_SETTING}" /></dd>
+			<dd><input type="number" id="whovisitedthistopic_value"	name="whovisitedthistopic_value" <!-- IF not WHOVISITEDTHISTOPIC_ALLOW_TOPICS -->checked="checked" disabled<!-- ENDIF --> size="3" maxlength="3" min="2" max="255" value="{WHOVISITEDTHISTOPIC_SETTING}" /></dd>
+		</dl>
+		<dl>
+			<dt>
+				<label for="whovisitedthistopic_allow_memberpage">{L_WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS}{L_COLON}</label><br />
+				<span>{L_WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS_EXPLAIN}</span></dt>
+			</dt>
+			<dd>
+				<label><input type="radio" id="whovisitedthistopic_allow_memberpage" class="radio" name="whovisitedthistopic_allow_memberpage" value="1"<!-- IF WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label><input type="radio" class="radio" name="whovisitedthistopic_allow_memberpage" value="0"<!-- IF not WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE	--> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+			</dd>
 		</dl>
 		<dl>
 			<dt>
 				<label for="whovisitedthistopic_visit_value">{L_WHOVISITEDTHISTOPIC_VISIT_SETTING}{L_COLON}</label><br />
 				<span>{L_WHOVISITEDTHISTOPIC_VISIT_SETTING_EXPLAIN}</span></dt>
 			</dt>
-			<dd><input type="number" id="whovisitedthistopic_visit_value"	name="whovisitedthistopic_visit_value" size="3" maxlength="3" min="2" max="255" value="{WHOVISITEDTHISTOPIC_VISIT_SETTING}" /></dd>
+			<dd><input type="number" id="whovisitedthistopic_visit_value"	name="whovisitedthistopic_visit_value" <!-- IF not WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE -->checked="checked" disabled<!-- ENDIF --> size="3" maxlength="3" min="2" max="255" value="{WHOVISITEDTHISTOPIC_VISIT_SETTING}" /></dd>
 		</dl>
 	</fieldset>
 

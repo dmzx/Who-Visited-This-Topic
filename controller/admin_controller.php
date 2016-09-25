@@ -89,7 +89,9 @@ class admin_controller
 
 		$this->template->assign_vars(array(
 			'U_ACTION'								=> $this->u_action,
+			'WHOVISITEDTHISTOPIC_ALLOW_TOPICS'		=> $this->config['whovisitedthistopic_allow_topics'],
 			'WHOVISITEDTHISTOPIC_SETTING'			=> $this->config['whovisitedthistopic_value'],
+			'WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE'	=> $this->config['whovisitedthistopic_allow_memberpage'],
 			'WHOVISITEDTHISTOPIC_VISIT_SETTING'		=> $this->config['whovisitedthistopic_visit_value'],
 		));
 		$this->version_check->check();
@@ -103,7 +105,9 @@ class admin_controller
 	*/
 	protected function set_options()
 	{
+		$this->config->set('whovisitedthistopic_allow_topics', $this->request->variable('whovisitedthistopic_allow_topics', 1));
 		$this->config->set('whovisitedthistopic_value', $this->request->variable('whovisitedthistopic_value', 10));
+		$this->config->set('whovisitedthistopic_allow_memberpage', $this->request->variable('whovisitedthistopic_allow_memberpage', 1));
 		$this->config->set('whovisitedthistopic_visit_value', $this->request->variable('whovisitedthistopic_visit_value', 10));
 	}
 

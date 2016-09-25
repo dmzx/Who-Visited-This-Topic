@@ -169,7 +169,7 @@ class listener implements EventSubscriberInterface
 		$user_id = $this->user->data['user_id'];
 		$value = $this->config['whovisitedthistopic_value'];
 
-		if (($this->user->data['user_id'] != ANONYMOUS) && (!$this->user->data['is_bot']))
+		if (($this->user->data['user_id'] != ANONYMOUS) && (!$this->user->data['is_bot']) && $this->config['whovisitedthistopic_allow_topics'])
 		{
 			$sql = 'SELECT *
 				FROM ' . $this->whovisitedthistopic_table . '
@@ -207,7 +207,7 @@ class listener implements EventSubscriberInterface
 			}
 		}
 
-		if ($this->auth->acl_get('u_whovisitedthistopic'))
+		if ($this->auth->acl_get('u_whovisitedthistopic') && $this->config['whovisitedthistopic_allow_topics'])
 		{
 			$query = 'SELECT w.user_id, w.topic_id, w.counter_user, w.date, u.username, u.user_colour, u.user_id, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, u.user_type, SUM(w.counter_user) AS total
 				FROM ' . $this->whovisitedthistopic_table . ' w, ' . USERS_TABLE . ' u
@@ -269,7 +269,7 @@ class listener implements EventSubscriberInterface
 		$value = $this->config['whovisitedthistopic_visit_value'];
 		$start = $this->request->variable('start', 0);
 
-		if ($this->auth->acl_get('u_whovisitedthistopic_profile'))
+		if ($this->auth->acl_get('u_whovisitedthistopic_profile') && $this->config['whovisitedthistopic_allow_memberpage'])
 		{
 			$this->template->assign_var('PERMISSION_PROFILE', true);
 
