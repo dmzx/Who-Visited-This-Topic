@@ -169,7 +169,7 @@ class listener implements EventSubscriberInterface
 		$user_id = $this->user->data['user_id'];
 		$value = $this->config['whovisitedthistopic_value'];
 
-		if (($this->user->data['user_id'] != ANONYMOUS) && (!$this->user->data['is_bot']) && $this->config['whovisitedthistopic_allow_topics'])
+		if (($this->user->data['user_id'] != ANONYMOUS) && (!$this->user->data['is_bot']) && $this->auth->acl_get('u_whovisitedthistopic') && $this->config['whovisitedthistopic_allow_topics'])
 		{
 			$sql = 'SELECT *
 				FROM ' . $this->whovisitedthistopic_table . '
@@ -255,7 +255,7 @@ class listener implements EventSubscriberInterface
 				$this->template->assign_var('PERMISSION_VIEW', true);
 			}
 
-			if ($this->auth->acl_get('u_whovisitedthistopic_count'))
+			if ($this->auth->acl_get('u_whovisitedthistopic_count') && $this->config['whovisitedthistopic_allow_count'])
 			{
 				$this->template->assign_var('PERMISSION_COUNT', true);
 			}
@@ -271,8 +271,6 @@ class listener implements EventSubscriberInterface
 
 		if ($this->auth->acl_get('u_whovisitedthistopic_profile') && $this->config['whovisitedthistopic_allow_memberpage'])
 		{
-			$this->template->assign_var('PERMISSION_PROFILE', true);
-
 			$sql_list = array(
 				'SELECT'	=> 'ft.*, tt.*, wt.*',
 				'FROM'		=> array(
@@ -370,15 +368,16 @@ class listener implements EventSubscriberInterface
 
 				$this->pagination->generate_template_pagination($base_url, 'whovisitedthistopic.pagination', 'start', $replies + 1, $this->config['posts_per_page'], 1, true, true);
 			}
+			$this->template->assign_var('PERMISSION_PROFILE', true);
 		}
 
 		$this->template->assign_vars(array(
 			'WHOVISITEDTHISTOPIC_VISIT_TITLE'	=> $this->user->lang('WHOVISITEDTHISTOPIC_VISIT_TITLE', $value),
-			'NEWEST_POST_IMG'	=> $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'),
-			'LAST_POST_IMG'		=> $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
-			'REPORTED_IMG'		=> $this->user->img('icon_topic_reported', 'TOPIC_REPORTED'),
-			'POLL_IMG'			=> $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
-			'PHPBB_IS_32'		=> ($this->files_factory !== null) ? true : false,
+			'NEWEST_POST_IMG'					=> $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'),
+			'LAST_POST_IMG'						=> $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
+			'REPORTED_IMG'						=> $this->user->img('icon_topic_reported', 'TOPIC_REPORTED'),
+			'POLL_IMG'							=> $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
+			'PHPBB_IS_32'						=> ($this->files_factory !== null) ? true : false,
 		));
 	}
 }

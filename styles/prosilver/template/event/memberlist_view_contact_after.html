@@ -19,14 +19,14 @@
 						<!-- IF whovisitedthistopic.S_UNREAD_TOPIC and not S_IS_BOT --><a href="{whovisitedthistopic.U_NEWEST_POST}" class="<!-- IF PHPBB_IS_32 -->row-item-link<!-- ELSE -->icon-link<!-- ENDIF -->"></a><!-- ENDIF -->
 						<div class="list-inner">
 							<!-- IF whovisitedthistopic.S_UNREAD_TOPIC and not S_IS_BOT -->
-								<a href="{whovisitedthistopic.U_NEWEST_POST}"><!-- IF PHPBB_IS_32 --><i class="icon fa-file fa-fw icon-red icon-md" aria-hidden="true"></i><span class="sr-only">{NEW_POST}</span><!-- ELSE -->{NEWEST_POST_IMG}<!-- ENDIF --></a>
+							<a href="{whovisitedthistopic.U_NEWEST_POST}"><!-- IF PHPBB_IS_32 --><i class="icon fa-file fa-fw icon-red icon-md" aria-hidden="true"></i><span class="sr-only">{NEW_POST}</span><!-- ELSE -->{NEWEST_POST_IMG}<!-- ENDIF --></a>
 							<!-- ENDIF -->
 							<a href="{whovisitedthistopic.U_VIEW_TOPIC}" class="topictitle">{whovisitedthistopic.TOPIC_TITLE}</a> <!-- IF not PHPBB_IS_32 -->{whovisitedthistopic.ATTACH_ICON_IMG}<!-- ENDIF -->
 							<!-- IF whovisitedthistopic.S_TOPIC_UNAPPROVED or whovisitedthistopic.S_POSTS_UNAPPROVED -->
-								<a href="{whovisitedthistopic.U_MCP_QUEUE}"><!-- IF PHPBB_IS_32 --><i class="icon fa-question fa-fw icon-blue" aria-hidden="true"></i><span class="sr-only">{TOPIC_UNAPPROVED}</span><!-- ELSE -->{whovisitedthistopic.UNAPPROVED_IMG}<!-- ENDIF --></a>
+							<a href="{whovisitedthistopic.U_MCP_QUEUE}"><!-- IF PHPBB_IS_32 --><i class="icon fa-question fa-fw icon-blue" aria-hidden="true"></i><span class="sr-only">{TOPIC_UNAPPROVED}</span><!-- ELSE -->{whovisitedthistopic.UNAPPROVED_IMG}<!-- ENDIF --></a>
 							<!-- ENDIF -->
 							<!-- IF whovisitedthistopic.S_TOPIC_REPORTED -->
-								<a href="{whovisitedthistopic.U_MCP_REPORT}"><!-- IF PHPBB_IS_32 --><i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i><span class="sr-only">{TOPIC_REPORTED}</span><!-- ELSE -->{REPORTED_IMG}<!-- ENDIF --></a>
+							<a href="{whovisitedthistopic.U_MCP_REPORT}"><!-- IF PHPBB_IS_32 --><i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i><span class="sr-only">{TOPIC_REPORTED}</span><!-- ELSE -->{REPORTED_IMG}<!-- ENDIF --></a>
 							<!-- ENDIF -->
 							<br />
 							<!-- IF PHPBB_IS_32 -->
@@ -72,7 +72,7 @@
 					<dd class="lastpost">
 						<span><!-- IF PHPBB_IS_32 --><dfn>{L_LAST_POST} </dfn><!-- ENDIF -->{L_POST_BY_AUTHOR} {whovisitedthistopic.LAST_POST_AUTHOR_FULL}
 							<!-- IF not S_IS_BOT -->
-								<a href="{whovisitedthistopic.U_LAST_POST}" title="{L_GOTO_LAST_POST}"><!-- IF PHPBB_IS_32 --><i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">{VIEW_LATEST_POST}</span><!-- ELSE -->{LAST_POST_IMG}<!-- ENDIF --></a>
+							<a href="{whovisitedthistopic.U_LAST_POST}" title="{L_GOTO_LAST_POST}"><!-- IF PHPBB_IS_32 --><i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">{VIEW_LATEST_POST}</span><!-- ELSE -->{LAST_POST_IMG}<!-- ENDIF --></a>
 							<!-- ENDIF -->
 							<br />{whovisitedthistopic.LAST_POST_TIME}
 						</span>

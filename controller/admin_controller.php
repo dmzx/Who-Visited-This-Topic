@@ -93,6 +93,7 @@ class admin_controller
 			'WHOVISITEDTHISTOPIC_SETTING'			=> $this->config['whovisitedthistopic_value'],
 			'WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE'	=> $this->config['whovisitedthistopic_allow_memberpage'],
 			'WHOVISITEDTHISTOPIC_VISIT_SETTING'		=> $this->config['whovisitedthistopic_visit_value'],
+			'WHOVISITEDTHISTOPIC_ALLOW_COUNT'		=> $this->config['whovisitedthistopic_allow_count'],
 		));
 		$this->version_check->check();
 	}
@@ -109,6 +110,7 @@ class admin_controller
 		$this->config->set('whovisitedthistopic_value', $this->request->variable('whovisitedthistopic_value', 10));
 		$this->config->set('whovisitedthistopic_allow_memberpage', $this->request->variable('whovisitedthistopic_allow_memberpage', 1));
 		$this->config->set('whovisitedthistopic_visit_value', $this->request->variable('whovisitedthistopic_visit_value', 10));
+		$this->config->set('whovisitedthistopic_allow_count', $this->request->variable('whovisitedthistopic_allow_count', 1));
 	}
 
 	/**

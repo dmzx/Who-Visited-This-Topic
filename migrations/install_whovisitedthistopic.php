@@ -24,7 +24,8 @@ class install_whovisitedthistopic extends \phpbb\db\migration\migration
 			array('config.add', array('whovisitedthistopic_visit_value', 10)),
 			array('config.add', array('whovisitedthistopic_allow_topics', 1)),
 			array('config.add', array('whovisitedthistopic_allow_memberpage', 1)),
-			array('config.add', array('whovisitedthistopic_version', '1.0.3')),
+			array('config.add', array('whovisitedthistopic_allow_count', 1)),
+			array('config.add', array('whovisitedthistopic_version', '1.0.4')),
 			// Permissions
 			array('permission.add', array('u_whovisitedthistopic', true)),
 			array('permission.add', array('u_whovisitedthistopic_count', true)),

@@ -3,8 +3,8 @@
 	"type": "phpbb-extension",
 	"description": "Shows the users who have visited a topic and the times they have visited.",
 	"homepage": "http://www.dmzx-web.net",
-	"version": "1.0.3",
-	"time": "2016-09-25",
+	"version": "1.0.4",
+	"time": "2016-09-26",
 	"keywords": ["phpbb", "extension", "whovisitedthistopic"],
 	"license": "GPL-2.0",
 	"authors": [
