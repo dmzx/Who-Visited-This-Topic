@@ -2,7 +2,7 @@
 <h3>{WHOVISITEDTHISTOPIC_TITLE}</h3>
 <p>
 	<!-- BEGIN whovisitedthistopic -->
-		<div class="whovisitedthistopic-avatar">{whovisitedthistopic.AVATAR}</div> <span><a href="{whovisitedthistopic.URL}" "{whovisitedthistopic.DATE}" "{whovisitedthistopic.USERNAME_COLOUR}">{whovisitedthistopic.USERNAME}</a></span><!-- IF PERMISSION_COUNT --> ({whovisitedthistopic.VISITS})<!-- ENDIF --><!-- IF not whovisitedthistopic.S_LAST_ROW -->, <!-- ENDIF -->
+		<!-- IF PERMISSION_SHOW_AVATAR --><div class="whovisitedthistopic-avatar">{whovisitedthistopic.AVATAR}</div><!-- ENDIF --> <span><a href="{whovisitedthistopic.URL}" "{whovisitedthistopic.DATE}" "{whovisitedthistopic.USERNAME_COLOUR}">{whovisitedthistopic.USERNAME}</a></span><!-- IF PERMISSION_COUNT --> ({whovisitedthistopic.VISITS})<!-- ENDIF --><!-- IF not whovisitedthistopic.S_LAST_ROW -->, <!-- ENDIF -->
 	<!-- END whovisitedthistopic -->
 </p>
 <!-- ENDIF -->

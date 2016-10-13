@@ -91,6 +91,16 @@
 				<label><input type="radio" class="radio" name="whovisitedthistopic_allow_count" value="0"<!-- IF not WHOVISITEDTHISTOPIC_ALLOW_COUNT --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 			</dd>
 		</dl>
+		<dl>
+			<dt>
+				<label for="whovisitedthistopic_show_avatar">{L_WHOVISITEDTHISTOPIC_SHOW_AVATAR}{L_COLON}</label><br />
+				<span>{L_WHOVISITEDTHISTOPIC_SHOW_AVATAR_EXPLAIN}</span></dt>
+			</dt>
+			<dd>
+				<label><input type="radio" id="whovisitedthistopic_show_avatar" class="radio" name="whovisitedthistopic_show_avatar" value="1"<!-- IF WHOVISITEDTHISTOPIC_SHOW_AVATAR --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label><input type="radio" class="radio" name="whovisitedthistopic_show_avatar" value="0"<!-- IF not WHOVISITEDTHISTOPIC_SHOW_AVATAR --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+			</dd>
+		</dl>
 	</fieldset>
 
 	<fieldset class="submit-buttons">

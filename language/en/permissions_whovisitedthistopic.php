@@ -37,7 +37,8 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'ACL_U_WHOVISITEDTHISTOPIC'				=> 'Can view Who Visited A Topic in topics',
-	'ACL_U_WHOVISITEDTHISTOPIC_COUNT'		=> 'Can view Who Visited A Topic counter in topics',
-	'ACL_U_WHOVISITEDTHISTOPIC_PROFILE'		=> 'Can view Who Visited A Topic in profile',
+	'ACL_U_WHOVISITEDTHISTOPIC'					=> 'Can view Who Visited A Topic in topics',
+	'ACL_U_WHOVISITEDTHISTOPIC_COUNT'			=> 'Can view Who Visited A Topic counter in topics',
+	'ACL_U_WHOVISITEDTHISTOPIC_PROFILE'			=> 'Can view Who Visited A Topic in profile',
+	'ACL_U_WHOVISITEDTHISTOPIC_SHOW_AVATAR'		=> 'Can view Who Visited A Topic avatars in topics',
 ));

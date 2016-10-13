@@ -157,6 +157,10 @@ class listener implements EventSubscriberInterface
 				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC_PROFILE',
 				'cat'		=> 'whovisitedthistopic'
 			),
+			'u_whovisitedthistopic_show_avatar'	=> array(
+				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC_SHOW_AVATAR',
+				'cat'		=> 'whovisitedthistopic'
+			),
 		);
 		$event['permissions'] = $permissions;
 		$categories['whovisitedthistopic'] = 'WHOVISITEDTHISTOPIC_INDEX';
@@ -169,7 +173,7 @@ class listener implements EventSubscriberInterface
 		$user_id = $this->user->data['user_id'];
 		$value = $this->config['whovisitedthistopic_value'];
 
-		if (($this->user->data['user_id'] != ANONYMOUS) && (!$this->user->data['is_bot']) && $this->auth->acl_get('u_whovisitedthistopic') && $this->config['whovisitedthistopic_allow_topics'])
+		if (($this->user->data['user_id'] != ANONYMOUS) && (!$this->user->data['is_bot']) && $this->config['whovisitedthistopic_allow_topics'])
 		{
 			$sql = 'SELECT *
 				FROM ' . $this->whovisitedthistopic_table . '
@@ -248,17 +252,10 @@ class listener implements EventSubscriberInterface
 
 			$this->template->assign_vars(array(
 				'WHOVISITEDTHISTOPIC_TITLE'			=> $this->user->lang('WHOVISITEDTHISTOPIC_TITLE', $value),
+				'PERMISSION_COUNT'					=> $this->auth->acl_get('u_whovisitedthistopic_count') && $this->config['whovisitedthistopic_allow_count'],
+				'PERMISSION_VIEW'					=> $this->auth->acl_get('u_whovisitedthistopic'),
+				'PERMISSION_SHOW_AVATAR'			=> $this->auth->acl_get('u_whovisitedthistopic_show_avatar') && $this->config['whovisitedthistopic_show_avatar'],
 			));
-
-			if ($this->auth->acl_get('u_whovisitedthistopic'))
-			{
-				$this->template->assign_var('PERMISSION_VIEW', true);
-			}
-
-			if ($this->auth->acl_get('u_whovisitedthistopic_count') && $this->config['whovisitedthistopic_allow_count'])
-			{
-				$this->template->assign_var('PERMISSION_COUNT', true);
-			}
 		}
 	}
 
