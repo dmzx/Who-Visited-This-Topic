@@ -38,13 +38,16 @@ class install_whovisitedthistopic extends \phpbb\db\migration\migration
 			array('module.add', array(
 				'acp',
 				'ACP_CAT_DOT_MODS',
-				'ACP_WHOVISITEDTHISTOPIC_TITLE'
+				'ACP_WHOVISITEDTHISTOPIC_TITLE',
 			)),
 			array('module.add', array(
 				'acp',
 				'ACP_WHOVISITEDTHISTOPIC_TITLE',
 				array(
 					'module_basename'	=> '\dmzx\whovisitedthistopic\acp\acp_whovisitedthistopic_module',
+					'modes'				=> array(
+						'settings',
+					),
 				),
 			)),
 		);

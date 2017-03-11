@@ -13,35 +13,6 @@
 	</div>
 <!-- ENDIF -->
 
-<!-- BEGIN ext_update -->
-<fieldset>
-	<legend>{L_WHOVISITEDTHISTOPIC_VERSION_CHECK}</legend>
-	<p style="font-weight: bold; color: <!-- IF ext_update.WHOVISITEDTHISTOPIC_S_UP_TO_DATE -->#228822<!-- ELSE -->#BC2A4D<!-- ENDIF -->;">{ext_update.WHOVISITEDTHISTOPIC_UP_TO_DATE}</p>
-	<dl>
-		<dt><label>{L_WHOVISITEDTHISTOPIC_CURRENT_VERSION}{L_COLON}</label></dt>
-		<dd><strong>{ext_update.WHOVISITEDTHISTOPIC_CURRENT_VERSION}</strong></dd>
-	</dl>
-	<dl>
-		<dt><label>{L_WHOVISITEDTHISTOPIC_LATEST_VERSION}{L_COLON}</label></dt>
-		<dd><strong>{ext_update.WHOVISITEDTHISTOPIC_LATEST_VERSION}</strong></dd>
-	</dl>
-	<dl>
-		<dt><label>{L_WHOVISITEDTHISTOPIC_AUTHOR}{L_COLON}</label></dt>
-		<dd><strong>{ext_update.WHOVISITEDTHISTOPIC_AUTHOR}</strong></dd>
-	</dl>
-	<!-- IF not ext_update.WHOVISITEDTHISTOPIC_S_UP_TO_DATE -->
-		<dl>
-			<dt><label>{L_WHOVISITEDTHISTOPIC_DOWNLOAD_LATEST}{L_COLON}</label></dt>
-			<dd><strong><a href="{ext_update.WHOVISITEDTHISTOPIC_DOWNLOAD}">{L_WHOVISITEDTHISTOPIC_DOWNLOAD} {ext_update.WHOVISITEDTHISTOPIC_TITLE} {ext_update.WHOVISITEDTHISTOPIC_LATEST_VERSION}</a></strong></dd>
-		</dl>
-		<dl>
-			<dt><label>{L_WHOVISITEDTHISTOPIC_ANNOUNCEMENT_TOPIC}{L_COLON}</label></dt>
-			<dd><strong><a href="{ext_update.WHOVISITEDTHISTOPIC_ANNOUNCEMENT}">{L_WHOVISITEDTHISTOPIC_RELEASE_ANNOUNCEMENT}</a></strong></dd>
-		</dl>
-	<!-- ENDIF -->
-</fieldset>
-<!-- END ext_update -->
-
 <div class="successbox notice">{L_WHOVISITEDTHISTOPIC_SETTINGS_EXPLAIN}</div>
 
 <form id="acp_board" method="post" action="{U_ACTION}">
@@ -50,7 +21,7 @@
 		<dl>
 			<dt>
 				<label for="whovisitedthistopic_allow_topics">{L_WHOVISITEDTHISTOPIC_TOPIC_SETTINGS}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_TOPIC_SETTINGS_EXPLAIN}</span></dt>
+				<span>{L_WHOVISITEDTHISTOPIC_TOPIC_SETTINGS_EXPLAIN}</span>
 			</dt>
 			<dd>
 				<label><input type="radio" id="whovisitedthistopic_allow_topics" class="radio" name="whovisitedthistopic_allow_topics" value="1"<!-- IF WHOVISITEDTHISTOPIC_ALLOW_TOPICS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
@@ -60,14 +31,14 @@
 		<dl>
 			<dt>
 				<label for="whovisitedthistopic_value">{L_WHOVISITEDTHISTOPIC_SETTING}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_SETTING_EXPLAIN}</span></dt>
+				<span>{L_WHOVISITEDTHISTOPIC_SETTING_EXPLAIN}</span>
 			</dt>
 			<dd><input type="number" id="whovisitedthistopic_value"	name="whovisitedthistopic_value" <!-- IF not WHOVISITEDTHISTOPIC_ALLOW_TOPICS -->title="{L_WHOVISITEDTHISTOPIC_DISABLED_TOPIC}"	checked="checked" disabled<!-- ENDIF --> size="3" maxlength="3" min="2" max="255" value="{WHOVISITEDTHISTOPIC_SETTING}" /></dd>
 		</dl>
 		<dl>
 			<dt>
 				<label for="whovisitedthistopic_allow_memberpage">{L_WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS_EXPLAIN}</span></dt>
+				<span>{L_WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS_EXPLAIN}</span>
 			</dt>
 			<dd>
 				<label><input type="radio" id="whovisitedthistopic_allow_memberpage" class="radio" name="whovisitedthistopic_allow_memberpage" value="1"<!-- IF WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
@@ -77,14 +48,14 @@
 		<dl>
 			<dt>
 				<label for="whovisitedthistopic_visit_value">{L_WHOVISITEDTHISTOPIC_VISIT_SETTING}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_VISIT_SETTING_EXPLAIN}</span></dt>
+				<span>{L_WHOVISITEDTHISTOPIC_VISIT_SETTING_EXPLAIN}</span>
 			</dt>
 			<dd><input type="number" id="whovisitedthistopic_visit_value"	name="whovisitedthistopic_visit_value" <!-- IF not WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE -->title="{L_WHOVISITEDTHISTOPIC_DISABLED_MEMBERPAGE}"	checked="checked" disabled<!-- ENDIF --> size="3" maxlength="3" min="2" max="255" value="{WHOVISITEDTHISTOPIC_VISIT_SETTING}" /></dd>
 		</dl>
 		<dl>
 			<dt>
 				<label for="whovisitedthistopic_allow_count">{L_WHOVISITEDTHISTOPIC_COUNT_SETTINGS}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_COUNT_SETTINGS_EXPLAIN}</span></dt>
+				<span>{L_WHOVISITEDTHISTOPIC_COUNT_SETTINGS_EXPLAIN}</span>
 			</dt>
 			<dd>
 				<label><input type="radio" id="whovisitedthistopic_allow_count" class="radio" name="whovisitedthistopic_allow_count" value="1"<!-- IF WHOVISITEDTHISTOPIC_ALLOW_COUNT --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
@@ -94,7 +65,7 @@
 		<dl>
 			<dt>
 				<label for="whovisitedthistopic_show_avatar">{L_WHOVISITEDTHISTOPIC_SHOW_AVATAR}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_SHOW_AVATAR_EXPLAIN}</span></dt>
+				<span>{L_WHOVISITEDTHISTOPIC_SHOW_AVATAR_EXPLAIN}</span>
 			</dt>
 			<dd>
 				<label><input type="radio" id="whovisitedthistopic_show_avatar" class="radio" name="whovisitedthistopic_show_avatar" value="1"<!-- IF WHOVISITEDTHISTOPIC_SHOW_AVATAR --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>

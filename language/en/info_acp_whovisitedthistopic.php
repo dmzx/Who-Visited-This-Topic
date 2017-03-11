@@ -40,4 +40,6 @@ $lang = array_merge($lang, array(
 	'ACP_WHOVISITEDTHISTOPIC_TITLE'				=> 'Who Visited This Topic',
 	'ACP_WHOVISITEDTHISTOPIC_SETTINGS'			=> 'Settings',
 	'ACP_WHOVISITEDTHISTOPIC_OPTIONS_SAVED'		=> 'Who Visited This Topic options has been saved.',
+	// Log entries
+	'LOG_WHOVISITEDTHISTOPIC_UPDATE'			=> '<strong>Who Visited This Topic settings saved</strong>',
 ));

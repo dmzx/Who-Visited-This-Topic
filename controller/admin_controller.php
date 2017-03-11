@@ -23,9 +23,6 @@ class admin_controller
 	/** @var \phpbb\user */
 	protected $user;
 
-	/** @var ContainerBuilder */
-	protected $phpbb_container;
-
 	/** @var \phpbb\request\request */
 	protected $request;
 
@@ -35,26 +32,23 @@ class admin_controller
 	/**
 	 * Constructor
 	 *
-	 * @param \phpbb\config\config											$config
-	 * @param \phpbb\template\template										$template
-	 * @param \\phpbb\log\log_interface										$log
-	 * @param \phpbb\user													$user
-	 * @param	\Symfony\Component\DependencyInjection\ContainerInterface 	$phpbb_container
-	 * @param \phpbb\request\request										$request
+	 * @param \phpbb\config\config				$config
+	 * @param \phpbb\template\template			$template
+	 * @param \phpbb\log\log_interface			$log
+	 * @param \phpbb\user						$user
+	 * @param \phpbb\request\request			$request
 	 */
 	public function __construct(
 		\phpbb\config\config $config,
 		\phpbb\template\template $template,
 		\phpbb\log\log_interface $log,
 		\phpbb\user $user,
-		$phpbb_container,
 		\phpbb\request\request $request)
 	{
 		$this->config 			= $config;
 		$this->template 		= $template;
 		$this->log 				= $log;
 		$this->user 			= $user;
-		$this->phpbb_container 	= $phpbb_container;
 		$this->request 			= $request;
 	}
 
@@ -68,7 +62,8 @@ class admin_controller
 	{
 		add_form_key('whovisitedthistopic');
 
-		$this->version_check = $this->phpbb_container->get('dmzx.whovisitedthistopic.version.check');
+		// Add lang file
+		$this->user->add_lang_ext('dmzx/whovisitedthistopic', 'whovisitedthistopic_acp');
 
 		// Is the form being submitted to us?
 		if ($this->request->is_set_post('submit'))
@@ -82,7 +77,7 @@ class admin_controller
 			$this->set_options();
 
 			// Add option settings change action to the admin log
-			$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'WHOVISITEDTHISTOPIC_SAVED');
+			$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_WHOVISITEDTHISTOPIC_UPDATE');
 
 			trigger_error($this->user->lang('ACP_WHOVISITEDTHISTOPIC_OPTIONS_SAVED') . adm_back_link($this->u_action));
 		}
@@ -96,7 +91,6 @@ class admin_controller
 			'WHOVISITEDTHISTOPIC_ALLOW_COUNT'		=> $this->config['whovisitedthistopic_allow_count'],
 			'WHOVISITEDTHISTOPIC_SHOW_AVATAR'		=> $this->config['whovisitedthistopic_show_avatar'],
 		));
-		$this->version_check->check();
 	}
 
 	/**
