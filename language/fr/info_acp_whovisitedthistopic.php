@@ -39,9 +39,9 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'ACP_WHOVISITEDTHISTOPIC_TITLE'				=> '« Qui a visité ce sujet ? »',
+	'ACP_WHOVISITEDTHISTOPIC_TITLE'				=> 'Membres ayant visité ce sujet',
 	'ACP_WHOVISITEDTHISTOPIC_SETTINGS'			=> 'Paramètres',
-	'ACP_WHOVISITEDTHISTOPIC_OPTIONS_SAVED'		=> 'Les paramètres du « Qui a visité ce sujet ? » ont été sauvegardés avec succès !',
+	'ACP_WHOVISITEDTHISTOPIC_OPTIONS_SAVED'		=> 'Les paramètres des « Membres ayant visité ce sujet » ont été sauvegardés avec succès !',
 	// Log entries
-	'LOG_WHOVISITEDTHISTOPIC_UPDATE'			=> '<strong>Paramètres du « Qui a visité ce sujet ? » sauvegardés</strong>',
+	'LOG_WHOVISITEDTHISTOPIC_UPDATE'			=> '<strong>Paramètres des « Membres ayant visité ce sujet » sauvegardés</strong>',
 ));

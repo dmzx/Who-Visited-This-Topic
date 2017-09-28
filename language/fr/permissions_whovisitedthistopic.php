@@ -39,7 +39,7 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'WHOVISITEDTHISTOPIC_INDEX'					=> '« Qui a visité ce sujet ? »',
+	'WHOVISITEDTHISTOPIC_INDEX'					=> 'Membres ayant visité ce sujet',
 	'ACL_U_WHOVISITEDTHISTOPIC'					=> 'Peut voir les membres ayant consulté un sujet dans les sujets.',
 	'ACL_U_WHOVISITEDTHISTOPIC_COUNT'			=> 'Peut voir le compteur de vues des membres ayant consulté un sujet dans les sujets.',
 	'ACL_U_WHOVISITEDTHISTOPIC_PROFILE'			=> 'Peut voir quels sujets ont été consultés par les membres dans les profils utilisateur.',
