@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - Who Visited This Topic
-* @copyright (c) 2016 dmzx - http://www.dmzx-web.net
+* @copyright (c) 2016 dmzx - https://www.dmzx-web.net
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -37,6 +37,6 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'WHOVISITEDTHISTOPIC_TITLE'			=> 'Last <strong>%d</strong> Members Who Visited This Topic',
+	'WHOVISITEDTHISTOPIC_TITLE'			=> 'Last <strong>%d</strong> Members Who Visited This Topic. Total <strong>%d</strong> visits',
 	'WHOVISITEDTHISTOPIC_VISIT_TITLE'	=> 'Last <strong>%d</strong> topics visited',
 ));

@@ -1,7 +1,5 @@
 # Who Visited This Topic Extension
 
-[![Build Status](https://travis-ci.org/dmzx/Who-Visited-This-Topic.svg?branch=master)](https://travis-ci.org/dmzx/Who-Visited-This-Topic)
-
 ## Install
 1. Download the latest release.
 2. Unzip the downloaded release, and change the name of the folder to `whovisitedthistopic`.

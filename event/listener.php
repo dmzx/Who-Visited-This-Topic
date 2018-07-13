@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - Who Visited This Topic
-* @copyright (c) 2016 dmzx - http://www.dmzx-web.net
+* @copyright (c) 2016 dmzx - https://www.dmzx-web.net
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -224,14 +224,21 @@ class listener implements EventSubscriberInterface
 					'USERNAME_COLOUR'	=> $user_colour,
 					'VISITS'			=> $visits,
 					'URL'				=> $url,
-					'AVATAR'			=> empty($avatar) ? '<img src="' . $this->phpbb_admin_path . 'images/no_avatar.gif" width="60px;" height="60px;" alt="" />' : $avatar,
+					'AVATAR'			=> empty($avatar) ? '<img src="' . $this->root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="60px;" height="60px;" alt="" />' : $avatar,
 					'DATE'				=> $date
 				));
 			}
 			$this->db->sql_freeresult($row_query);
 
+			$sql = 'SELECT topic_id, SUM(counter_user) AS counter
+				FROM ' . $this->whovisitedthistopic_table . '
+				WHERE topic_id = ' . (int) $topic_id;
+			$result = $this->db->sql_query($sql);
+			$counter = (int) $this->db->sql_fetchfield('counter');
+			$this->db->sql_freeresult($result);
+
 			$this->template->assign_vars(array(
-				'WHOVISITEDTHISTOPIC_TITLE'			=> $this->user->lang('WHOVISITEDTHISTOPIC_TITLE', $value),
+				'WHOVISITEDTHISTOPIC_TITLE'			=> $this->user->lang('WHOVISITEDTHISTOPIC_TITLE', $value, $counter),
 				'PERMISSION_COUNT'					=> $this->auth->acl_get('u_whovisitedthistopic_count') && $this->config['whovisitedthistopic_allow_count'],
 				'PERMISSION_VIEW'					=> $this->auth->acl_get('u_whovisitedthistopic'),
 				'PERMISSION_SHOW_AVATAR'			=> $this->auth->acl_get('u_whovisitedthistopic_show_avatar') && $this->config['whovisitedthistopic_show_avatar'],
