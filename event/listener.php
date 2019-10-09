@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - Who Visited This Topic
-* @copyright (c) 2016 dmzx - http://www.dmzx-web.net
+* @copyright (c) 2016 dmzx - https://www.dmzx-web.net
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -49,12 +49,6 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\auth\auth */
 	protected $auth;
 
-	/** @var string phpBB admin path */
-	protected $phpbb_admin_path;
-
-	/** @var \phpbb\files\factory */
-	protected $files_factory;
-
 	/**
 	* Constructor
 	*
@@ -70,8 +64,6 @@ class listener implements EventSubscriberInterface
 	* @param string								$phpEx
 	* @param string								$whovisitedthistopic_table
 	* @param \phpbb\auth\auth					$auth
-	* @param string								$phpbb_admin_path
-	* @param \phpbb\files\factory				$files_factory
 	*
 	*/
 	public function __construct(
@@ -86,9 +78,7 @@ class listener implements EventSubscriberInterface
 		$root_path,
 		$phpEx,
 		$whovisitedthistopic_table,
-		\phpbb\auth\auth $auth,
-		$phpbb_admin_path,
-		\phpbb\files\factory $files_factory = null
+		\phpbb\auth\auth $auth
 	)
 	{
 		$this->config 						= $config;
@@ -103,8 +93,6 @@ class listener implements EventSubscriberInterface
 		$this->phpEx						= $phpEx;
 		$this->whovisitedthistopic_table 	= $whovisitedthistopic_table;
 		$this->auth 						= $auth;
-		$this->phpbb_admin_path 			= $phpbb_admin_path;
-		$this->files_factory 				= $files_factory;
 	}
 
 	static public function getSubscribedEvents()
@@ -224,14 +212,21 @@ class listener implements EventSubscriberInterface
 					'USERNAME_COLOUR'	=> $user_colour,
 					'VISITS'			=> $visits,
 					'URL'				=> $url,
-					'AVATAR'			=> empty($avatar) ? '<img src="' . $this->phpbb_admin_path . 'images/no_avatar.gif" width="60px;" height="60px;" alt="" />' : $avatar,
+					'AVATAR'			=> empty($avatar) ? '<img src="' . $this->root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="60px;" height="60px;" alt="" />' : $avatar,
 					'DATE'				=> $date
 				));
 			}
 			$this->db->sql_freeresult($row_query);
 
+			$sql = 'SELECT topic_id, SUM(counter_user) AS counter
+				FROM ' . $this->whovisitedthistopic_table . '
+				WHERE topic_id = ' . (int) $topic_id;
+			$result = $this->db->sql_query($sql);
+			$counter = (int) $this->db->sql_fetchfield('counter');
+			$this->db->sql_freeresult($result);
+
 			$this->template->assign_vars(array(
-				'WHOVISITEDTHISTOPIC_TITLE'			=> $this->user->lang('WHOVISITEDTHISTOPIC_TITLE', $value),
+				'WHOVISITEDTHISTOPIC_TITLE'			=> $this->user->lang('WHOVISITEDTHISTOPIC_TITLE', $value, $counter),
 				'PERMISSION_COUNT'					=> $this->auth->acl_get('u_whovisitedthistopic_count') && $this->config['whovisitedthistopic_allow_count'],
 				'PERMISSION_VIEW'					=> $this->auth->acl_get('u_whovisitedthistopic'),
 				'PERMISSION_SHOW_AVATAR'			=> $this->auth->acl_get('u_whovisitedthistopic_show_avatar') && $this->config['whovisitedthistopic_show_avatar'],
@@ -331,7 +326,6 @@ class listener implements EventSubscriberInterface
 					'TOPIC_ICON_IMG_WIDTH'	=> (!empty($icons[$sql_list['icon_id']])) ? $icons[$sql_list['icon_id']]['width'] : '',
 					'TOPIC_ICON_IMG_HEIGHT'	=> (!empty($icons[$sql_list['icon_id']])) ? $icons[$sql_list['icon_id']]['height'] : '',
 					'ATTACH_ICON_IMG'		=> ($this->auth->acl_get('u_download') && $this->auth->acl_get('f_download', $forum_id) && $sql_list['topic_attachment']) ? $this->user->img('icon_topic_attach', $this->user->lang('TOTAL_ATTACHMENTS')) : '',
-					'UNAPPROVED_IMG'		=> ($topic_unapproved || $posts_unapproved) ? $this->user->img('icon_topic_unapproved', $topic_unapproved ? 'TOPIC_UNAPPROVED' : 'POSTS_UNAPPROVED') : '',
 
 					'TOPIC_IMG_STYLE'		=> $folder_img,
 					'TOPIC_FOLDER_IMG'		=> $this->user->img($folder_img, $folder_alt),
@@ -354,11 +348,6 @@ class listener implements EventSubscriberInterface
 
 		$this->template->assign_vars(array(
 			'WHOVISITEDTHISTOPIC_VISIT_TITLE'	=> $this->user->lang('WHOVISITEDTHISTOPIC_VISIT_TITLE', $value),
-			'NEWEST_POST_IMG'					=> $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'),
-			'LAST_POST_IMG'						=> $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
-			'REPORTED_IMG'						=> $this->user->img('icon_topic_reported', 'TOPIC_REPORTED'),
-			'POLL_IMG'							=> $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
-			'PHPBB_IS_32'						=> ($this->files_factory !== null) ? true : false,
 		));
 	}
 }

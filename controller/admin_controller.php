@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - Who Visited This Topic
-* @copyright (c) 2016 dmzx - http://www.dmzx-web.net
+* @copyright (c) 2016 dmzx - https://www.dmzx-web.net
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -84,6 +84,7 @@ class admin_controller
 
 		$this->template->assign_vars(array(
 			'U_ACTION'								=> $this->u_action,
+			'WHOVISITEDTHISTOPIC_VERSION'			=> $this->config['whovisitedthistopic_version'],
 			'WHOVISITEDTHISTOPIC_ALLOW_TOPICS'		=> $this->config['whovisitedthistopic_allow_topics'],
 			'WHOVISITEDTHISTOPIC_SETTING'			=> $this->config['whovisitedthistopic_value'],
 			'WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE'	=> $this->config['whovisitedthistopic_allow_memberpage'],

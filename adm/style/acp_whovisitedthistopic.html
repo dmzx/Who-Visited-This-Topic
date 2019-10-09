@@ -1,85 +1,87 @@
-<!-- INCLUDECSS acp_whovisitedthistopic.css -->
-<!-- INCLUDE overall_header.html -->
-<!-- INCLUDEJS acp_whovisitedthistopic.js -->
+{% INCLUDECSS 'acp_whovisitedthistopic.css' %}
+{% INCLUDE 'overall_header.html' %}
+{% INCLUDEJS 'acp_whovisitedthistopic.js' %}
 
 <div id="WhoVisitedThisTopic"></div>
 
-<h1>{L_ACP_WHOVISITEDTHISTOPIC_TITLE}</h1>
+<h1>{{ lang('ACP_WHOVISITEDTHISTOPIC_TITLE') }}</h1>
 
-<!-- IF S_ERROR -->
+<p><img src="https://img.shields.io/badge/{{ lang('Version') }}-{{ WHOVISITEDTHISTOPIC_VERSION }}-green.svg?style=plastic" /></p>
+
+{% if S_ERROR %}
 	<div class="errorbox">
-		<h3>{L_WARNING}</h3>
-		<p>{ERROR_MSG}</p>
+		<h3>{{ lang('WARNING') }}</h3>
+		<p>{{ ERROR_MSG }}</p>
 	</div>
-<!-- ENDIF -->
+{% endif %}
 
-<div class="successbox notice">{L_WHOVISITEDTHISTOPIC_SETTINGS_EXPLAIN}</div>
+<div class="successbox notice">{{ lang('WHOVISITEDTHISTOPIC_SETTINGS_EXPLAIN') }}</div>
 
-<form id="acp_board" method="post" action="{U_ACTION}">
+<form id="acp_board" method="post" action="{{ U_ACTION }}">
 	<fieldset>
-		<legend>{L_ACP_WHOVISITEDTHISTOPIC_SETTINGS}</legend>
+		<legend>{{ lang('ACP_WHOVISITEDTHISTOPIC_SETTINGS') }}</legend>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_allow_topics">{L_WHOVISITEDTHISTOPIC_TOPIC_SETTINGS}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_TOPIC_SETTINGS_EXPLAIN}</span>
+				<label for="whovisitedthistopic_allow_topics">{{ lang('WHOVISITEDTHISTOPIC_TOPIC_SETTINGS') }}{{ lang('COLON') }}</label><br />
+				<span>{{ lang('WHOVISITEDTHISTOPIC_TOPIC_SETTINGS_EXPLAIN') }}</span>
 			</dt>
 			<dd>
-				<label><input type="radio" id="whovisitedthistopic_allow_topics" class="radio" name="whovisitedthistopic_allow_topics" value="1"<!-- IF WHOVISITEDTHISTOPIC_ALLOW_TOPICS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-				<label><input type="radio" class="radio" name="whovisitedthistopic_allow_topics" value="0"<!-- IF not WHOVISITEDTHISTOPIC_ALLOW_TOPICS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				<label><input type="radio" id="whovisitedthistopic_allow_topics" class="radio" name="whovisitedthistopic_allow_topics" value="1"{% if WHOVISITEDTHISTOPIC_ALLOW_TOPICS %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="whovisitedthistopic_allow_topics" value="0"{% if not WHOVISITEDTHISTOPIC_ALLOW_TOPICS %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_value">{L_WHOVISITEDTHISTOPIC_SETTING}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_SETTING_EXPLAIN}</span>
+				<label for="whovisitedthistopic_value">{{ lang('WHOVISITEDTHISTOPIC_SETTING') }}{{ lang('COLON') }}</label><br />
+				<span>{{ lang('WHOVISITEDTHISTOPIC_SETTING_EXPLAIN') }}</span>
 			</dt>
-			<dd><input type="number" id="whovisitedthistopic_value"	name="whovisitedthistopic_value" <!-- IF not WHOVISITEDTHISTOPIC_ALLOW_TOPICS -->title="{L_WHOVISITEDTHISTOPIC_DISABLED_TOPIC}"	checked="checked" disabled<!-- ENDIF --> size="3" maxlength="3" min="2" max="255" value="{WHOVISITEDTHISTOPIC_SETTING}" /></dd>
+			<dd><input type="number" id="whovisitedthistopic_value"	name="whovisitedthistopic_value" {% if not WHOVISITEDTHISTOPIC_ALLOW_TOPICS %}title="{{ lang('WHOVISITEDTHISTOPIC_DISABLED_TOPIC') }}"	checked="checked" disabled{% endif %} size="3" maxlength="3" min="2" max="255" value="{{ WHOVISITEDTHISTOPIC_SETTING }}" /></dd>
 		</dl>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_allow_memberpage">{L_WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS_EXPLAIN}</span>
+				<label for="whovisitedthistopic_allow_memberpage">{{ lang('WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS') }}{{ lang('COLON') }}</label><br />
+				<span>{{ lang('WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS_EXPLAIN') }}</span>
 			</dt>
 			<dd>
-				<label><input type="radio" id="whovisitedthistopic_allow_memberpage" class="radio" name="whovisitedthistopic_allow_memberpage" value="1"<!-- IF WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-				<label><input type="radio" class="radio" name="whovisitedthistopic_allow_memberpage" value="0"<!-- IF not WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				<label><input type="radio" id="whovisitedthistopic_allow_memberpage" class="radio" name="whovisitedthistopic_allow_memberpage" value="1"{% if WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="whovisitedthistopic_allow_memberpage" value="0"{% if not WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_visit_value">{L_WHOVISITEDTHISTOPIC_VISIT_SETTING}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_VISIT_SETTING_EXPLAIN}</span>
+				<label for="whovisitedthistopic_visit_value">{{ lang('WHOVISITEDTHISTOPIC_VISIT_SETTING') }}{{ lang('COLON') }}</label><br />
+				<span>{{ lang('WHOVISITEDTHISTOPIC_VISIT_SETTING_EXPLAIN') }}</span>
 			</dt>
-			<dd><input type="number" id="whovisitedthistopic_visit_value"	name="whovisitedthistopic_visit_value" <!-- IF not WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE -->title="{L_WHOVISITEDTHISTOPIC_DISABLED_MEMBERPAGE}"	checked="checked" disabled<!-- ENDIF --> size="3" maxlength="3" min="2" max="255" value="{WHOVISITEDTHISTOPIC_VISIT_SETTING}" /></dd>
+			<dd><input type="number" id="whovisitedthistopic_visit_value"	name="whovisitedthistopic_visit_value" {% if not WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE %}title="{{ lang('WHOVISITEDTHISTOPIC_DISABLED_MEMBERPAGE') }}"	checked="checked" disabled{% endif %} size="3" maxlength="3" min="2" max="255" value="{{ WHOVISITEDTHISTOPIC_VISIT_SETTING }}" /></dd>
 		</dl>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_allow_count">{L_WHOVISITEDTHISTOPIC_COUNT_SETTINGS}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_COUNT_SETTINGS_EXPLAIN}</span>
+				<label for="whovisitedthistopic_allow_count">{{ lang('WHOVISITEDTHISTOPIC_COUNT_SETTINGS') }}{{ lang('COLON') }}</label><br />
+				<span>{{ lang('WHOVISITEDTHISTOPIC_COUNT_SETTINGS_EXPLAIN') }}</span>
 			</dt>
 			<dd>
-				<label><input type="radio" id="whovisitedthistopic_allow_count" class="radio" name="whovisitedthistopic_allow_count" value="1"<!-- IF WHOVISITEDTHISTOPIC_ALLOW_COUNT --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-				<label><input type="radio" class="radio" name="whovisitedthistopic_allow_count" value="0"<!-- IF not WHOVISITEDTHISTOPIC_ALLOW_COUNT --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				<label><input type="radio" id="whovisitedthistopic_allow_count" class="radio" name="whovisitedthistopic_allow_count" value="1"{% if WHOVISITEDTHISTOPIC_ALLOW_COUNT %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="whovisitedthistopic_allow_count" value="0"{% if not WHOVISITEDTHISTOPIC_ALLOW_COUNT %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_show_avatar">{L_WHOVISITEDTHISTOPIC_SHOW_AVATAR}{L_COLON}</label><br />
-				<span>{L_WHOVISITEDTHISTOPIC_SHOW_AVATAR_EXPLAIN}</span>
+				<label for="whovisitedthistopic_show_avatar">{{ lang('WHOVISITEDTHISTOPIC_SHOW_AVATAR') }}{{ lang('COLON') }}</label><br />
+				<span>{{ lang('WHOVISITEDTHISTOPIC_SHOW_AVATAR_EXPLAIN') }}</span>
 			</dt>
 			<dd>
-				<label><input type="radio" id="whovisitedthistopic_show_avatar" class="radio" name="whovisitedthistopic_show_avatar" value="1"<!-- IF WHOVISITEDTHISTOPIC_SHOW_AVATAR --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-				<label><input type="radio" class="radio" name="whovisitedthistopic_show_avatar" value="0"<!-- IF not WHOVISITEDTHISTOPIC_SHOW_AVATAR --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				<label><input type="radio" id="whovisitedthistopic_show_avatar" class="radio" name="whovisitedthistopic_show_avatar" value="1"{% if WHOVISITEDTHISTOPIC_SHOW_AVATAR %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="whovisitedthistopic_show_avatar" value="0"{% if not WHOVISITEDTHISTOPIC_SHOW_AVATAR %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 	</fieldset>
 
 	<fieldset class="submit-buttons">
-		<legend>{L_SUBMIT}</legend>
-		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />
+		<legend>{{ lang('SUBMIT') }}</legend>
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />
 	</fieldset>
 
-	{S_FORM_TOKEN}
+	{{ S_FORM_TOKEN }}
 </form>
 
-<!-- INCLUDE overall_footer.html -->
+{% INCLUDE 'overall_footer.html' %}

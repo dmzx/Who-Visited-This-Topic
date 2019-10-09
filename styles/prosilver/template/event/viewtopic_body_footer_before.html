@@ -1,8 +1,8 @@
-<!-- IF PERMISSION_VIEW -->
-<h3>{WHOVISITEDTHISTOPIC_TITLE}</h3>
+{% if PERMISSION_VIEW %}
+<h3>{{ WHOVISITEDTHISTOPIC_TITLE }}</h3>
 <p>
-<!-- BEGIN whovisitedthistopic -->
-	<!-- IF PERMISSION_SHOW_AVATAR --><span class="whovisitedthistopic-avatar">{whovisitedthistopic.AVATAR}</span><!-- ENDIF --> <span><a href="{whovisitedthistopic.URL}" "{whovisitedthistopic.DATE}" "{whovisitedthistopic.USERNAME_COLOUR}">{whovisitedthistopic.USERNAME}</a></span><!-- IF PERMISSION_COUNT --> ({whovisitedthistopic.VISITS})<!-- ENDIF --><!-- IF not whovisitedthistopic.S_LAST_ROW -->, <!-- ENDIF -->
-<!-- END whovisitedthistopic -->
+{% for whovisitedthistopic in loops.whovisitedthistopic %}
+	{% if PERMISSION_SHOW_AVATAR %}<span class="whovisitedthistopic-avatar">{{ whovisitedthistopic.AVATAR }}</span>{% endif %} <span><a href="{{ whovisitedthistopic.URL }}" "{{ whovisitedthistopic.DATE }}" "{{ whovisitedthistopic.USERNAME_COLOUR }}">{{ whovisitedthistopic.USERNAME }}</a></span>{% if PERMISSION_COUNT %} ({{ whovisitedthistopic.VISITS }}){% endif %}{% if not whovisitedthistopic.S_LAST_ROW %}, {% endif %}
+{% endfor %}
 </p>
-<!-- ENDIF -->
+{% endif %}

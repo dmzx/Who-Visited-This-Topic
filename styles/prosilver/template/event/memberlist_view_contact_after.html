@@ -1,86 +1,88 @@
-<!-- IF PERMISSION_PROFILE and .whovisitedthistopic -->
+{% if PERMISSION_PROFILE and loops.whovisitedthistopic|length %}
 <div class="forumbg">
 	<div class="inner">
 		<ul class="topiclist">
 			<li class="header">
-				<dl class="<!-- IF PHPBB_IS_32 -->row-item<!-- ELSE -->icon<!-- ENDIF -->">
-					<dt><span class="list-inner">{WHOVISITEDTHISTOPIC_VISIT_TITLE}</span></dt>
-					<dd class="posts">{L_REPLIES}</dd>
-					<dd class="views">{L_VIEWS}</dd>
-					<dd class="lastpost"><span>{L_LAST_POST}</span></dd>
+				<dl class="row-item">
+					<dt><span class="list-inner">{{ WHOVISITEDTHISTOPIC_VISIT_TITLE }}</span></dt>
+					<dd class="posts">{{ lang('REPLIES') }}</dd>
+					<dd class="views">{{ lang('VIEWS') }}</dd>
+					<dd class="lastpost"><span>{{ lang('LAST_POST') }}</span></dd>
 				</dl>
 			</li>
 		</ul>
 		<ul class="topiclist topics">
-		<!-- BEGIN whovisitedthistopic -->
-			<li class="row<!-- IF whovisitedthistopic.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
-				<dl class="<!-- IF PHPBB_IS_32 -->row-item<!-- ELSE -->icon<!-- ENDIF --> {whovisitedthistopic.TOPIC_IMG_STYLE}">
-					<dt <!-- IF whovisitedthistopic.TOPIC_ICON_IMG -->style="background-image: url({T_ICONS_PATH}{whovisitedthistopic.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{whovisitedthistopic.TOPIC_FOLDER_IMG_ALT}">
-						<!-- IF whovisitedthistopic.S_UNREAD_TOPIC and not S_IS_BOT --><a href="{whovisitedthistopic.U_NEWEST_POST}" class="<!-- IF PHPBB_IS_32 -->row-item-link<!-- ELSE -->icon-link<!-- ENDIF -->"></a><!-- ENDIF -->
+		{% for whovisitedthistopic in loops.whovisitedthistopic %}
+			<li class="row{% if whovisitedthistopic.S_ROW_COUNT is even %} bg1{% else %} bg2{% endif %}">
+				<dl class="row-item {{ whovisitedthistopic.TOPIC_IMG_STYLE }}">
+					<dt {% if whovisitedthistopic.TOPIC_ICON_IMG %}style="background-image: url({{ T_ICONS_PATH }}{{ whovisitedthistopic.TOPIC_ICON_IMG }}); background-repeat: no-repeat;"{% endif %} title="{{ whovisitedthistopic.TOPIC_FOLDER_IMG_ALT }}">
+						{% if whovisitedthistopic.S_UNREAD_TOPIC and not S_IS_BOT %}<a href="{{ whovisitedthistopic.U_NEWEST_POST }}" class="row-item-link"></a>{% endif %}
 						<div class="list-inner">
-							<!-- IF whovisitedthistopic.S_UNREAD_TOPIC and not S_IS_BOT -->
-							<a href="{whovisitedthistopic.U_NEWEST_POST}"><!-- IF PHPBB_IS_32 --><i class="icon fa-file fa-fw icon-red icon-md" aria-hidden="true"></i><span class="sr-only">{NEW_POST}</span><!-- ELSE -->{NEWEST_POST_IMG}<!-- ENDIF --></a>
-							<!-- ENDIF -->
-							<a href="{whovisitedthistopic.U_VIEW_TOPIC}" class="topictitle">{whovisitedthistopic.TOPIC_TITLE}</a> <!-- IF not PHPBB_IS_32 -->{whovisitedthistopic.ATTACH_ICON_IMG}<!-- ENDIF -->
-							<!-- IF whovisitedthistopic.S_TOPIC_UNAPPROVED or whovisitedthistopic.S_POSTS_UNAPPROVED -->
-							<a href="{whovisitedthistopic.U_MCP_QUEUE}"><!-- IF PHPBB_IS_32 --><i class="icon fa-question fa-fw icon-blue" aria-hidden="true"></i><span class="sr-only">{TOPIC_UNAPPROVED}</span><!-- ELSE -->{whovisitedthistopic.UNAPPROVED_IMG}<!-- ENDIF --></a>
-							<!-- ENDIF -->
-							<!-- IF whovisitedthistopic.S_TOPIC_REPORTED -->
-							<a href="{whovisitedthistopic.U_MCP_REPORT}"><!-- IF PHPBB_IS_32 --><i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i><span class="sr-only">{TOPIC_REPORTED}</span><!-- ELSE -->{REPORTED_IMG}<!-- ENDIF --></a>
-							<!-- ENDIF -->
+							{% if whovisitedthistopic.S_UNREAD_TOPIC and not S_IS_BOT %}
+							<a href="{{ whovisitedthistopic.U_NEWEST_POST }}">
+								<i class="icon fa-file fa-fw icon-red icon-md" aria-hidden="true"></i><span class="sr-only">{{ NEW_POST }}</span>
+							</a>
+							{% endif %}
+							<a href="{{ whovisitedthistopic.U_VIEW_TOPIC }}" class="topictitle">{{ whovisitedthistopic.TOPIC_TITLE }}</a>
+							{% if whovisitedthistopic.S_TOPIC_UNAPPROVED or whovisitedthistopic.S_POSTS_UNAPPROVED %}
+							<a href="{{ whovisitedthistopic.U_MCP_QUEUE }}">
+								<i class="icon fa-question fa-fw icon-blue" aria-hidden="true"></i><span class="sr-only">{{ TOPIC_UNAPPROVED }}</span>
+							</a>
+							{% endif %}
+							{% if whovisitedthistopic.S_TOPIC_REPORTED %}
+							<a href="{{ whovisitedthistopic.U_MCP_REPORT }}">
+								<i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i><span class="sr-only">{{ TOPIC_REPORTED }}</span>
+							</a>
+							{% endif %}
 							<br />
-							<!-- IF PHPBB_IS_32 -->
-								<!-- IF not S_IS_BOT -->
-									<div class="responsive-show" style="display: none;">
-										{L_LAST_POST} {L_POST_BY_AUTHOR} {whovisitedthistopic.LAST_POST_AUTHOR_FULL} &laquo; <a href="{whovisitedthistopic.U_LAST_POST}" title="{L_GOTO_LAST_POST}">{whovisitedthistopic.LAST_POST_TIME}</a>
-										<br />{L_POSTED} {L_IN} <a href="{whovisitedthistopic.U_VIEW_FORUM}">{whovisitedthistopic.FORUM_TITLE}</a>
-									</div>
-									<!-- IF whovisitedthistopic.TOPIC_REPLIES --><span class="responsive-show left-box" style="display: none;">{L_REPLIES}{L_COLON} <strong>{whovisitedthistopic.TOPIC_REPLIES}</strong></span><!-- ENDIF -->
-								<!-- ENDIF -->
 
-								<div class="responsive-hide">
-									<!-- IF whovisitedthistopic.S_HAS_POLL --><i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i><!-- ENDIF -->
-									<!-- IF whovisitedthistopic.ATTACH_ICON_IMG --><i class="icon fa-paperclip fa-fw" aria-hidden="true"></i><!-- ENDIF -->
-									{L_POST_BY_AUTHOR} {whovisitedthistopic.TOPIC_AUTHOR_FULL} &raquo; {whovisitedthistopic.FIRST_POST_TIME} &raquo; {L_IN} <a href="{whovisitedthistopic.U_VIEW_FORUM}">{whovisitedthistopic.FORUM_TITLE}</a>
-								</div>
-							<!-- ELSE -->
-								<!-- IF whovisitedthistopic.S_HAS_POLL --><!-- IF PHPBB_IS_32 --><i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i><!-- ELSE -->{POLL_IMG}<!-- ENDIF --> <!-- ENDIF -->
-								<!-- IF whovisitedthistopic.ATTACH_ICON_IMG and PHPBB_IS_32 --><i class="icon fa-paperclip fa-fw" aria-hidden="true"></i><!-- ENDIF -->
-								{L_POST_BY_AUTHOR} {whovisitedthistopic.TOPIC_AUTHOR_FULL} &raquo; {whovisitedthistopic.FIRST_POST_TIME} &raquo; {L_IN} <a href="{whovisitedthistopic.U_VIEW_FORUM}">{whovisitedthistopic.FORUM_TITLE}</a>
-							<!-- ENDIF -->
+							{% if not S_IS_BOT %}
+							<div class="responsive-show" style="display: none;">
+								{{ lang('LAST_POST') }} {{ lang('POST_BY_AUTHOR') }} {{ whovisitedthistopic.LAST_POST_AUTHOR_FULL }} &laquo; <a href="{{ whovisitedthistopic.U_LAST_POST }}" title="{{ lang('GOTO_LAST_POST') }}">{{ whovisitedthistopic.LAST_POST_TIME }}</a>
+								<br />{{ lang('POSTED') }} {{ lang('IN') }} <a href="{{ whovisitedthistopic.U_VIEW_FORUM }}">{{ whovisitedthistopic.FORUM_TITLE }}</a>
+							</div>
+								{% if whovisitedthistopic.TOPIC_REPLIES %}
+								<span class="responsive-show left-box" style="display: none;">{{ lang('REPLIES') }}{{ lang('COLON') }} <strong>{{ whovisitedthistopic.TOPIC_REPLIES }}</strong></span>
+								{% endif %}
+							{% endif %}
 
-							<!-- IF .whovisitedthistopic.pagination -->
+							<div class="topic-poster responsive-hide left-box">
+								{% if whovisitedthistopic.S_HAS_POLL %}<i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i>{% endif %}
+								{% if whovisitedthistopic.ATTACH_ICON_IMG %}<i class="icon fa-paperclip fa-fw" aria-hidden="true"></i>{% endif %}
+								{{ lang('POST_BY_AUTHOR') }} {{ whovisitedthistopic.TOPIC_AUTHOR_FULL }} &raquo; {{ whovisitedthistopic.FIRST_POST_TIME }} &raquo; {{ lang('IN') }} <a href="{{ whovisitedthistopic.U_VIEW_FORUM }}">{{ whovisitedthistopic.FORUM_TITLE }}</a>
+							</div>
+
+							{% if whovisitedthistopic.pagination|length %}
 							<div class="pagination">
-							<!-- IF PHPBB_IS_32 --><span><i class="icon fa-clone fa-fw" aria-hidden="true"></i></span><!-- ENDIF -->
+								<span><i class="icon fa-clone fa-fw" aria-hidden="true"></i></span>
 								<ul>
-								<!-- BEGIN pagination -->
-									<!-- IF whovisitedthistopic.pagination.S_IS_PREV -->
-									<!-- ELSEIF whovisitedthistopic.pagination.S_IS_CURRENT --><li class="active"><span>{whovisitedthistopic.pagination.PAGE_NUMBER}</span></li>
-									<!-- ELSEIF whovisitedthistopic.pagination.S_IS_ELLIPSIS --><li class="ellipsis"><span>{L_ELLIPSIS}</span></li>
-									<!-- ELSEIF whovisitedthistopic.pagination.S_IS_NEXT -->
-									<!-- ELSE --><li><a <!-- IF PHPBB_IS_32 -->class="button"<!-- ENDIF --> href="{whovisitedthistopic.pagination.PAGE_URL}">{whovisitedthistopic.pagination.PAGE_NUMBER}</a></li>
-									<!-- ENDIF -->
-								<!-- END pagination -->
+								{% for pagination in whovisitedthistopic.pagination %}
+									{% if pagination.S_IS_PREV %}
+									{% elseif pagination.S_IS_CURRENT %}<li class="active"><span>{{ pagination.PAGE_NUMBER }}</span></li>
+									{% elseif pagination.S_IS_ELLIPSIS %}<li class="ellipsis"><span>{{ lang('ELLIPSIS') }}</span></li>
+									{% elseif pagination.S_IS_NEXT %}
+									{% else %}<li><a class="button" href="{{ pagination.PAGE_URL }}">{{ pagination.PAGE_NUMBER }}</a></li>
+									{% endif %}
+								{% endfor %}
 								</ul>
 							</div>
-							<!-- ENDIF -->
-
+							{% endif %}
 						</div>
 					</dt>
-					<dd class="posts">{whovisitedthistopic.TOPIC_REPLIES} <!-- IF PHPBB_IS_32 --><dfn>{L_REPLIES}</dfn><!-- ENDIF --></dd>
-					<dd class="views">{whovisitedthistopic.TOPIC_VIEWS} <!-- IF PHPBB_IS_32 --><dfn>{L_VIEWS}</dfn><!-- ENDIF --></dd>
+					<dd class="posts">{{ whovisitedthistopic.TOPIC_REPLIES }} <dfn>{{ lang('REPLIES') }}</dfn></dd>
+					<dd class="views">{{ whovisitedthistopic.TOPIC_VIEWS }} <dfn>{{ lang('VIEWS') }}</dfn></dd>
 					<dd class="lastpost">
-						<span><!-- IF PHPBB_IS_32 --><dfn>{L_LAST_POST} </dfn><!-- ENDIF -->{L_POST_BY_AUTHOR} {whovisitedthistopic.LAST_POST_AUTHOR_FULL}
-							<!-- IF not S_IS_BOT -->
-							<a href="{whovisitedthistopic.U_LAST_POST}" title="{L_GOTO_LAST_POST}"><!-- IF PHPBB_IS_32 --><i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">{VIEW_LATEST_POST}</span><!-- ELSE -->{LAST_POST_IMG}<!-- ENDIF --></a>
-							<!-- ENDIF -->
-							<br />{whovisitedthistopic.LAST_POST_TIME}
+						<span><dfn>{{ lang('LAST_POST') }} </dfn>{{ lang('POST_BY_AUTHOR') }} {{ whovisitedthistopic.LAST_POST_AUTHOR_FULL }}
+							{% if not S_IS_BOT %}
+							<a href="{{ whovisitedthistopic.U_LAST_POST }}" title="{{ lang('GOTO_LAST_POST') }}"><i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">{{ VIEW_LATEST_POST }}</span></a>
+							{% endif %}
+							<br />{{ whovisitedthistopic.LAST_POST_TIME }}
 						</span>
 					</dd>
 				</dl>
 			</li>
-		<!-- END whovisitedthistopic -->
+		{% endfor %}
 		</ul>
 	</div>
 </div>
-<!-- ENDIF -->
+{% endif %}

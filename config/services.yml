@@ -24,7 +24,5 @@ services:
             - '%core.php_ext%'
             - '%dmzx.whovisitedthistopic.tables.whovisitedthistopic%'
             - '@auth'
-            - '%core.adm_relative_path%'
-            - '@?files.factory'
         tags:
             - { name: event.listener } 
