@@ -4,8 +4,8 @@
  * Who Visited This Topic. An extension for the phpBB Forum Software package.
  * French translation by Galixte (http://www.galixte.com)
  *
- * @copyright (c) 2017 dmzx <http://www.dmzx-web.net>
- * @license GNU General Public License, version 2 (GPL-2.0)
+ * @copyright (c) 2018 dmzx <https://www.dmzx-web.net>
+ * @license GNU General Public License, version 2 (GPL-2.0-only)
  *
  */
 
@@ -39,6 +39,6 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'WHOVISITEDTHISTOPIC_TITLE'			=> '<strong>%d</strong> derniers membres ayant consulté ce sujet',
+	'WHOVISITEDTHISTOPIC_TITLE'			=> '<strong>%d</strong> derniers membres ayant consulté ce sujet. Total des consultations : <strong>%d</strong>',
 	'WHOVISITEDTHISTOPIC_VISIT_TITLE'	=> '<strong>%d</strong> derniers sujets consultés',
 ));
