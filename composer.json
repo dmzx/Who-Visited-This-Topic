@@ -3,8 +3,8 @@
 	"type": "phpbb-extension",
 	"description": "Shows the users who have visited a topic and the times they have visited.",
 	"homepage": "https://www.dmzx-web.net",
-	"version": "1.0.7",
-	"time": "2019-10-09",
+	"version": "1.0.8",
+	"time": "2021-07-23",
 	"keywords": [
 		"phpbb",
 		"extension",
