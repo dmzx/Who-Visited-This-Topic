@@ -39,7 +39,7 @@ class install_whovisitedthistopic extends \phpbb\db\migration\migration
 				'acp',
 				'ACP_CAT_DOT_MODS',
 				'ACP_WHOVISITEDTHISTOPIC_TITLE',
-            ]],
+			]],
 			['module.add', [
 				'acp',
 				'ACP_WHOVISITEDTHISTOPIC_TITLE',
@@ -47,10 +47,10 @@ class install_whovisitedthistopic extends \phpbb\db\migration\migration
 					'module_basename'	=> '\dmzx\whovisitedthistopic\acp\acp_whovisitedthistopic_module',
 					'modes'				=> [
 						'settings',
-                    ],
-                ],
-            ]],
-        ];
+					],
+				],
+			]],
+		];
 	}
 
 	public function update_schema()
@@ -64,11 +64,11 @@ class install_whovisitedthistopic extends \phpbb\db\migration\migration
 						'user_id'						=> ['UINT', null],
 						'topic_id'						=> ['UINT', null],
 						'date'							=> ['TIMESTAMP', 0],
-                    ],
+					],
 					'PRIMARY_KEY'	=> 'count_id',
-                ],
-            ],
-        ];
+				],
+			],
+		];
 	}
 
 	public function revert_schema()
@@ -76,7 +76,7 @@ class install_whovisitedthistopic extends \phpbb\db\migration\migration
 		return [
 			'drop_tables'	=> [
 				$this->table_prefix . 'whovisitedthistopic'
-            ],
-        ];
+			],
+		];
 	}
 }

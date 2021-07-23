@@ -15,7 +15,7 @@ class whovisitedthistopic_1_0_6 extends \phpbb\db\migration\migration
 	{
 		return [
 			'\dmzx\whovisitedthistopic\migrations\whovisitedthistopic_1_0_5',
-        ];
+		];
 	}
 
 	public function update_data()
@@ -23,6 +23,6 @@ class whovisitedthistopic_1_0_6 extends \phpbb\db\migration\migration
 		return [
 			// Update config
 			['config.update', ['whovisitedthistopic_version', '1.0.6']],
-        ];
+		];
 	}
 }

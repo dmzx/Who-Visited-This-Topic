@@ -101,7 +101,7 @@ class listener implements EventSubscriberInterface
 			'core.permissions'					=> 'permissions',
 			'core.viewtopic_get_post_data'		=> 'viewtopic_get_post_data',
 			'core.memberlist_view_profile'		=> 'memberlist_view_profile'
-        ];
+		];
 	}
 
 	public function permissions($event)
@@ -111,20 +111,20 @@ class listener implements EventSubscriberInterface
 			'u_whovisitedthistopic'		=> [
 				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC',
 				'cat'		=> 'whovisitedthistopic'
-            ],
+			],
 			'u_whovisitedthistopic_count'	=> [
 				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC_COUNT',
 				'cat'		=> 'whovisitedthistopic'
-            ],
+			],
 			'u_whovisitedthistopic_profile'	=> [
 				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC_PROFILE',
 				'cat'		=> 'whovisitedthistopic'
-            ],
+			],
 			'u_whovisitedthistopic_show_avatar'	=> [
 				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC_SHOW_AVATAR',
 				'cat'		=> 'whovisitedthistopic'
-            ],
-        ];
+			],
+		];
 		$event['permissions'] = $permissions;
 		$categories['whovisitedthistopic'] = 'WHOVISITEDTHISTOPIC_INDEX';
 		$event['categories'] = array_merge($event['categories'], $categories);
@@ -154,7 +154,7 @@ class listener implements EventSubscriberInterface
 				$sql_arr = [
 					'counter_user'	=> (int) $counter_user,
 					'date'			=> $date
-                ];
+				];
 
 				$sql_insert = 'UPDATE ' . $this->whovisitedthistopic_table . '
 					SET	' . $this->db->sql_build_array('UPDATE', $sql_arr) . '
@@ -170,7 +170,7 @@ class listener implements EventSubscriberInterface
 					'user_id'		=> $user_id,
 					'topic_id'		=> $topic_id,
 					'date'			=> $date
-                ];
+				];
 
 				$sql_insert = 'INSERT INTO ' . $this->whovisitedthistopic_table . ' ' . $this->db->sql_build_array('INSERT', $sql_arr);
 				$this->db->sql_query($sql_insert);
@@ -214,7 +214,7 @@ class listener implements EventSubscriberInterface
 					'URL'				=> $url,
 					'AVATAR'			=> empty($avatar) ? '<img src="' . $this->root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="60px;" height="60px;" alt="" />' : $avatar,
 					'DATE'				=> $date
-                ]);
+				]);
 			}
 			$this->db->sql_freeresult($row_query);
 
@@ -230,7 +230,7 @@ class listener implements EventSubscriberInterface
 				'PERMISSION_COUNT'					=> $this->auth->acl_get('u_whovisitedthistopic_count') && $this->config['whovisitedthistopic_allow_count'],
 				'PERMISSION_VIEW'					=> $this->auth->acl_get('u_whovisitedthistopic'),
 				'PERMISSION_SHOW_AVATAR'			=> $this->auth->acl_get('u_whovisitedthistopic_show_avatar') && $this->config['whovisitedthistopic_show_avatar'],
-            ]);
+			]);
 		}
 	}
 
@@ -251,10 +251,10 @@ class listener implements EventSubscriberInterface
 					FORUMS_TABLE	=> 'ft',
 					TOPICS_TABLE	=> 'tt',
 					$this->whovisitedthistopic_table	=> 'wt',
-                ],
+				],
 				'WHERE' => 'tt.topic_moved_id = 0 AND tt.topic_visibility = 1 AND wt.user_id = ' . $user_id . '	AND wt.topic_id = tt.topic_id AND ft.forum_id = tt.forum_id',
 				'ORDER_BY'	=> 'wt.date DESC',
-            ];
+			];
 
 			if ($this->user->data['is_registered'] && $this->config['load_db_lastread'])
 			{
@@ -337,7 +337,7 @@ class listener implements EventSubscriberInterface
 					'U_VIEW_FORUM'			=> append_sid("{$this->root_path}viewforum.{$this->phpEx}", 'f=' . $forum_id),
 					'U_MCP_REPORT'			=> append_sid("{$this->root_path}mcp.{$this->phpEx}", 'i=reports&amp;mode=reports&amp;f=' . $forum_id . '&amp;t=' . $topic_id, true, $this->user->session_id),
 					'U_MCP_QUEUE'			=> $u_mcp_queue,
-                ]);
+				]);
 
 				$this->pagination->generate_template_pagination($base_url, 'whovisitedthistopic.pagination', 'start', $replies + 1, $this->config['posts_per_page'], 1, true, true);
 			}
@@ -348,6 +348,6 @@ class listener implements EventSubscriberInterface
 
 		$this->template->assign_vars([
 			'WHOVISITEDTHISTOPIC_VISIT_TITLE'	=> $this->user->lang('WHOVISITEDTHISTOPIC_VISIT_TITLE', $value),
-        ]);
+		]);
 	}
 }

@@ -18,7 +18,7 @@ class acp_whovisitedthistopic_info
 			'title'		=> 'ACP_WHOVISITEDTHISTOPIC_TITLE',
 			'modes'		=> [
 				'settings'	=> ['title' => 'ACP_WHOVISITEDTHISTOPIC_SETTINGS', 'auth' => 'ext_dmzx/whovisitedthistopic && acl_a_board', 'cat' => ['ACP_WHOVISITEDTHISTOPIC_TITLE']],
-            ],
-        ];
+			],
+		];
 	}
 }

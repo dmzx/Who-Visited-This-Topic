@@ -15,7 +15,7 @@ class whovisitedthistopic_1_0_5 extends \phpbb\db\migration\migration
 	{
 		return [
 			'\dmzx\whovisitedthistopic\migrations\install_whovisitedthistopic',
-        ];
+		];
 	}
 
 	public function update_data()
@@ -29,6 +29,6 @@ class whovisitedthistopic_1_0_5 extends \phpbb\db\migration\migration
 			['permission.add', ['u_whovisitedthistopic_show_avatar', true]],
 			// Set Permission
 			['permission.permission_set', ['REGISTERED', 'u_whovisitedthistopic_show_avatar', 'group', true]],
-        ];
+		];
 	}
 }
