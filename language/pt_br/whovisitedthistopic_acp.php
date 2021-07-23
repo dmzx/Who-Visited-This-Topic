@@ -17,7 +17,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -36,7 +36,7 @@ if (empty($lang) || !is_array($lang))
 // ’ « » “ ” …
 //
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'WHOVISITEDTHISTOPIC_TOPIC_SETTINGS'				=> 'Habilita Quem Visitou Este Tópico nos tópicos',
 	'WHOVISITEDTHISTOPIC_TOPIC_SETTINGS_EXPLAIN'		=> 'Isso mostra Quem Visitou Este Tópico nos tópicos.',
 	'WHOVISITEDTHISTOPIC_COUNT_SETTINGS'				=> 'Habilita o contador de Quem Visitou Este Tópico nos tópicos',
@@ -52,4 +52,4 @@ $lang = array_merge($lang, array(
 	'WHOVISITEDTHISTOPIC_DISABLED_TOPIC'				=> 'Marque “Habilita Quem Visitou Este Tópico nos tópicos” para Sim para mudar este valor',
 	'WHOVISITEDTHISTOPIC_DISABLED_MEMBERPAGE'			=> 'Marque “Habilita Quem Visitou Este Tópico no perfil” para Sim para mudar este valor',
 	'WHOVISITEDTHISTOPIC_SETTINGS_EXPLAIN'				=> 'Vá para a aba <em><strong>Quem Visitou Este Tópico </strong></em> nas permissões de grupo para ajustar as permissões.',
-));
+]);

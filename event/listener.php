@@ -97,34 +97,34 @@ class listener implements EventSubscriberInterface
 
 	static public function getSubscribedEvents()
 	{
-		return array(
+		return [
 			'core.permissions'					=> 'permissions',
 			'core.viewtopic_get_post_data'		=> 'viewtopic_get_post_data',
 			'core.memberlist_view_profile'		=> 'memberlist_view_profile'
-		);
+        ];
 	}
 
 	public function permissions($event)
 	{
 		$permissions = $event['permissions'];
-		$permissions += array(
-			'u_whovisitedthistopic'		=> array(
+		$permissions += [
+			'u_whovisitedthistopic'		=> [
 				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC',
 				'cat'		=> 'whovisitedthistopic'
-			),
-			'u_whovisitedthistopic_count'	=> array(
+            ],
+			'u_whovisitedthistopic_count'	=> [
 				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC_COUNT',
 				'cat'		=> 'whovisitedthistopic'
-			),
-			'u_whovisitedthistopic_profile'	=> array(
+            ],
+			'u_whovisitedthistopic_profile'	=> [
 				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC_PROFILE',
 				'cat'		=> 'whovisitedthistopic'
-			),
-			'u_whovisitedthistopic_show_avatar'	=> array(
+            ],
+			'u_whovisitedthistopic_show_avatar'	=> [
 				'lang'		=> 'ACL_U_WHOVISITEDTHISTOPIC_SHOW_AVATAR',
 				'cat'		=> 'whovisitedthistopic'
-			),
-		);
+            ],
+        ];
 		$event['permissions'] = $permissions;
 		$categories['whovisitedthistopic'] = 'WHOVISITEDTHISTOPIC_INDEX';
 		$event['categories'] = array_merge($event['categories'], $categories);
@@ -151,10 +151,10 @@ class listener implements EventSubscriberInterface
 			{
 				$counter_user = $row['counter_user'] + 1;
 				$date = time();
-				$sql_arr = array(
+				$sql_arr = [
 					'counter_user'	=> (int) $counter_user,
 					'date'			=> $date
-				);
+                ];
 
 				$sql_insert = 'UPDATE ' . $this->whovisitedthistopic_table . '
 					SET	' . $this->db->sql_build_array('UPDATE', $sql_arr) . '
@@ -165,12 +165,12 @@ class listener implements EventSubscriberInterface
 			else
 			{
 				$date = time();
-				$sql_arr = array(
+				$sql_arr = [
 					'counter_user'	=> 1,
 					'user_id'		=> $user_id,
 					'topic_id'		=> $topic_id,
 					'date'			=> $date
-				);
+                ];
 
 				$sql_insert = 'INSERT INTO ' . $this->whovisitedthistopic_table . ' ' . $this->db->sql_build_array('INSERT', $sql_arr);
 				$this->db->sql_query($sql_insert);
@@ -207,14 +207,14 @@ class listener implements EventSubscriberInterface
 
 				$url = append_sid("{$this->root_path}memberlist.{$this->phpEx}?mode=viewprofile&amp;u={$user_id}");
 
-				$this->template->assign_block_vars('whovisitedthistopic',array(
+				$this->template->assign_block_vars('whovisitedthistopic', [
 					'USERNAME'			=> $username,
 					'USERNAME_COLOUR'	=> $user_colour,
 					'VISITS'			=> $visits,
 					'URL'				=> $url,
 					'AVATAR'			=> empty($avatar) ? '<img src="' . $this->root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="60px;" height="60px;" alt="" />' : $avatar,
 					'DATE'				=> $date
-				));
+                ]);
 			}
 			$this->db->sql_freeresult($row_query);
 
@@ -225,12 +225,12 @@ class listener implements EventSubscriberInterface
 			$counter = (int) $this->db->sql_fetchfield('counter');
 			$this->db->sql_freeresult($result);
 
-			$this->template->assign_vars(array(
+			$this->template->assign_vars([
 				'WHOVISITEDTHISTOPIC_TITLE'			=> $this->user->lang('WHOVISITEDTHISTOPIC_TITLE', $value, $counter),
 				'PERMISSION_COUNT'					=> $this->auth->acl_get('u_whovisitedthistopic_count') && $this->config['whovisitedthistopic_allow_count'],
 				'PERMISSION_VIEW'					=> $this->auth->acl_get('u_whovisitedthistopic'),
 				'PERMISSION_SHOW_AVATAR'			=> $this->auth->acl_get('u_whovisitedthistopic_show_avatar') && $this->config['whovisitedthistopic_show_avatar'],
-			));
+            ]);
 		}
 	}
 
@@ -245,33 +245,33 @@ class listener implements EventSubscriberInterface
 
 		if ($this->auth->acl_get('u_whovisitedthistopic_profile') && $this->config['whovisitedthistopic_allow_memberpage'])
 		{
-			$sql_list = array(
+			$sql_list = [
 				'SELECT'	=> 'ft.*, tt.*, wt.*',
-				'FROM'		=> array(
+				'FROM'		=> [
 					FORUMS_TABLE	=> 'ft',
 					TOPICS_TABLE	=> 'tt',
 					$this->whovisitedthistopic_table	=> 'wt',
-				),
+                ],
 				'WHERE' => 'tt.topic_moved_id = 0 AND tt.topic_visibility = 1 AND wt.user_id = ' . $user_id . '	AND wt.topic_id = tt.topic_id AND ft.forum_id = tt.forum_id',
 				'ORDER_BY'	=> 'wt.date DESC',
-			);
+            ];
 
 			if ($this->user->data['is_registered'] && $this->config['load_db_lastread'])
 			{
-				$sql_list['LEFT_JOIN'][] = array('FROM' => array(TOPICS_TRACK_TABLE => 'ttt'), 'ON' => 'ttt.topic_id = tt.topic_id AND ttt.user_id = ' .	(int) $this->user->data['user_id']);
-				$sql_list['LEFT_JOIN'][] = array('FROM' => array(FORUMS_TRACK_TABLE => 'ftt'), 'ON' => 'ftt.forum_id = ft.forum_id AND ftt.user_id = ' .	(int) $this->user->data['user_id']);
+				$sql_list['LEFT_JOIN'][] = ['FROM' => [TOPICS_TRACK_TABLE => 'ttt'], 'ON' => 'ttt.topic_id = tt.topic_id AND ttt.user_id = ' .	(int) $this->user->data['user_id']];
+				$sql_list['LEFT_JOIN'][] = ['FROM' => [FORUMS_TRACK_TABLE => 'ftt'], 'ON' => 'ftt.forum_id = ft.forum_id AND ftt.user_id = ' .	(int) $this->user->data['user_id']];
 				$sql_list['SELECT'] .= ', ttt.mark_time, ftt.mark_time as f_mark_time';
 			}
 			else if ($this->config['load_anon_lastread'] || $this->user->data['is_registered'])
 			{
 				$tracking_topics = $this->request->variable($this->config['cookie_name'] . '_track', '', true, \phpbb\request\request_interface::COOKIE);
-				$tracking_topics = $tracking_topics ? tracking_unserialize($tracking_topics) : array();
+				$tracking_topics = $tracking_topics ? tracking_unserialize($tracking_topics) : [];
 			}
 			$sql_list_query = $this->db->sql_build_query('SELECT', $sql_list);
 			$result = $this->db->sql_query_limit($sql_list_query, $value);
 
 			$icons = $this->cache->obtain_icons();
-			$rowset = array();
+			$rowset = [];
 
 			while ($sql_list = $this->db->sql_fetchrow($result))
 			{
@@ -281,7 +281,7 @@ class listener implements EventSubscriberInterface
 
 				if ($this->user->data['is_registered'] && $this->config['load_db_lastread'] && !$this->config['similar_topics_cache'])
 				{
-					$topic_tracking_info = get_topic_tracking($forum_id, $topic_id, $rowset, array($forum_id => $sql_list['f_mark_time']));
+					$topic_tracking_info = get_topic_tracking($forum_id, $topic_id, $rowset, [$forum_id => $sql_list['f_mark_time']]);
 				}
 				else if ($this->config['load_anon_lastread'] || $this->user->data['is_registered'])
 				{
@@ -304,7 +304,7 @@ class listener implements EventSubscriberInterface
 
 				$base_url = append_sid("{$this->root_path}viewtopic.{$this->phpEx}", 'f=' . $forum_id . '&amp;t=' . $topic_id);
 
-				$this->template->assign_block_vars('whovisitedthistopic',array(
+				$this->template->assign_block_vars('whovisitedthistopic', [
 					'TOPIC_REPLIES'			=> $replies,
 					'TOPIC_VIEWS'			=> $sql_list['topic_views'],
 					'TOPIC_TITLE'			=> censor_text($sql_list['topic_title']),
@@ -337,7 +337,7 @@ class listener implements EventSubscriberInterface
 					'U_VIEW_FORUM'			=> append_sid("{$this->root_path}viewforum.{$this->phpEx}", 'f=' . $forum_id),
 					'U_MCP_REPORT'			=> append_sid("{$this->root_path}mcp.{$this->phpEx}", 'i=reports&amp;mode=reports&amp;f=' . $forum_id . '&amp;t=' . $topic_id, true, $this->user->session_id),
 					'U_MCP_QUEUE'			=> $u_mcp_queue,
-				));
+                ]);
 
 				$this->pagination->generate_template_pagination($base_url, 'whovisitedthistopic.pagination', 'start', $replies + 1, $this->config['posts_per_page'], 1, true, true);
 			}
@@ -346,8 +346,8 @@ class listener implements EventSubscriberInterface
 			$this->template->assign_var('PERMISSION_PROFILE', true);
 		}
 
-		$this->template->assign_vars(array(
+		$this->template->assign_vars([
 			'WHOVISITEDTHISTOPIC_VISIT_TITLE'	=> $this->user->lang('WHOVISITEDTHISTOPIC_VISIT_TITLE', $value),
-		));
+        ]);
 	}
 }

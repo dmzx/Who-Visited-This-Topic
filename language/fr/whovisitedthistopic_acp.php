@@ -19,7 +19,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -38,7 +38,7 @@ if (empty($lang) || !is_array($lang))
 // ’ « » “ ” …
 //
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'WHOVISITEDTHISTOPIC_TOPIC_SETTINGS'				=> 'Activer la fonctionnalité « Membres ayant visité ce sujet » dans les sujets',
 	'WHOVISITEDTHISTOPIC_TOPIC_SETTINGS_EXPLAIN'		=> 'Permet d’afficher les membres ayant consulté un sujet, en bas de page, sur la vue des sujets.',
 	'WHOVISITEDTHISTOPIC_COUNT_SETTINGS'				=> 'Activer l’affichage des compteurs de vues du « Membres ayant visité ce sujet » dans les sujets',
@@ -54,4 +54,4 @@ $lang = array_merge($lang, array(
 	'WHOVISITEDTHISTOPIC_DISABLED_TOPIC'				=> 'Activer le paramètre « Activer la fonctionnalité “ Membres ayant visité ce sujet ” dans les sujets » sur « Oui » pour saisir une limite',
 	'WHOVISITEDTHISTOPIC_DISABLED_MEMBERPAGE'			=> 'Activer le paramètre « Activer l’affichage des sujets consultés par les membres dans les profils » sur « Oui » pour saisir une limite',
 	'WHOVISITEDTHISTOPIC_SETTINGS_EXPLAIN'				=> 'Se rendre dans l’onglet <em><strong>« Membres ayant visité ce sujet »</strong></em> de la rubrique des permissions de groupes pour définir les permissions de chacun des groupes.',
-));
+]);

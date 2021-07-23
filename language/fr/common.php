@@ -19,7 +19,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -38,7 +38,7 @@ if (empty($lang) || !is_array($lang))
 // ’ « » “ ” …
 //
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'WHOVISITEDTHISTOPIC_TITLE'			=> '<strong>%d</strong> derniers membres ayant consulté ce sujet. Total des consultations : <strong>%d</strong>',
 	'WHOVISITEDTHISTOPIC_VISIT_TITLE'	=> '<strong>%d</strong> derniers sujets consultés',
-));
+]);

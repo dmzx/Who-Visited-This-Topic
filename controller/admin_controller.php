@@ -82,7 +82,7 @@ class admin_controller
 			trigger_error($this->user->lang('ACP_WHOVISITEDTHISTOPIC_OPTIONS_SAVED') . adm_back_link($this->u_action));
 		}
 
-		$this->template->assign_vars(array(
+		$this->template->assign_vars([
 			'U_ACTION'								=> $this->u_action,
 			'WHOVISITEDTHISTOPIC_VERSION'			=> $this->config['whovisitedthistopic_version'],
 			'WHOVISITEDTHISTOPIC_ALLOW_TOPICS'		=> $this->config['whovisitedthistopic_allow_topics'],
@@ -91,7 +91,7 @@ class admin_controller
 			'WHOVISITEDTHISTOPIC_VISIT_SETTING'		=> $this->config['whovisitedthistopic_visit_value'],
 			'WHOVISITEDTHISTOPIC_ALLOW_COUNT'		=> $this->config['whovisitedthistopic_allow_count'],
 			'WHOVISITEDTHISTOPIC_SHOW_AVATAR'		=> $this->config['whovisitedthistopic_show_avatar'],
-		));
+        ]);
 	}
 
 	/**

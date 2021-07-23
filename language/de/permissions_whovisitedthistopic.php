@@ -18,7 +18,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -37,10 +37,10 @@ if (empty($lang) || !is_array($lang))
 // ‚ ‘ ’ « » „ “ ” …
 //
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'WHOVISITEDTHISTOPIC_INDEX'					=> 'Wer besuchte dieses Thema',
 	'ACL_U_WHOVISITEDTHISTOPIC'					=> 'Kann „Wer besuchte dieses Thema“ in Themen sehen',
 	'ACL_U_WHOVISITEDTHISTOPIC_COUNT'			=> 'Kann den „Wer besuchte dieses Thema“-Zähler in Themen sehen',
 	'ACL_U_WHOVISITEDTHISTOPIC_PROFILE'			=> 'Kann „Wer besuchte dieses Thema“ in Profilen sehen',
 	'ACL_U_WHOVISITEDTHISTOPIC_SHOW_AVATAR'		=> 'Kann Avatare bei „Wer besuchte dieses Thema“ in Themen sehen',
-));
+]);

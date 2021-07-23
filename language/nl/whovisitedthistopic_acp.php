@@ -18,7 +18,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -37,7 +37,7 @@ if (empty($lang) || !is_array($lang))
 // ’ « » “ ” …
 //
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'WHOVISITEDTHISTOPIC_TOPIC_SETTINGS'				=> 'Schakel Wie Bezocht Deze Topic aan in topics',
 	'WHOVISITEDTHISTOPIC_TOPIC_SETTINGS_EXPLAIN'		=> 'Dit zal de Wie Bezocht Deze Topic tonen in viewtopics.',
 	'WHOVISITEDTHISTOPIC_COUNT_SETTINGS'				=> 'Schakel Wie Bezocht Deze Topic teller aan in topics',
@@ -53,4 +53,4 @@ $lang = array_merge($lang, array(
 	'WHOVISITEDTHISTOPIC_DISABLED_TOPIC'				=> 'Uitgeschakeld. Zet “Schakel Wie Bezocht Deze Topic aan in topics” op Ja om een waarde in te stellen',
 	'WHOVISITEDTHISTOPIC_DISABLED_MEMBERPAGE'			=> 'Uitgeschakeld. Zet “Schakel Wie Bezocht Deze Topic aan in profielen” op Ja om een waarde in te stellen',
 	'WHOVISITEDTHISTOPIC_SETTINGS_EXPLAIN'				=> 'Ga naar de <em><strong>Wie Bezocht Deze Topic</strong></em> tab in de Groep Permissie sectie om permissies in te stellen voor iedere groep..',
-));
+]);

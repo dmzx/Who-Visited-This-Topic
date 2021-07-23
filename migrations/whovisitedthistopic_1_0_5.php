@@ -13,22 +13,22 @@ class whovisitedthistopic_1_0_5 extends \phpbb\db\migration\migration
 {
 	static public function depends_on()
 	{
-		return array(
+		return [
 			'\dmzx\whovisitedthistopic\migrations\install_whovisitedthistopic',
-		);
+        ];
 	}
 
 	public function update_data()
 	{
-		return array(
+		return [
 			// Update config
-			array('config.update', array('whovisitedthistopic_version', '1.0.5')),
+			['config.update', ['whovisitedthistopic_version', '1.0.5']],
 			// Add config
-			array('config.add', array('whovisitedthistopic_show_avatar', 1)),
+			['config.add', ['whovisitedthistopic_show_avatar', 1]],
 			// Permission
-			array('permission.add', array('u_whovisitedthistopic_show_avatar', true)),
+			['permission.add', ['u_whovisitedthistopic_show_avatar', true]],
 			// Set Permission
-			array('permission.permission_set', array('REGISTERED', 'u_whovisitedthistopic_show_avatar', 'group', true)),
-		);
+			['permission.permission_set', ['REGISTERED', 'u_whovisitedthistopic_show_avatar', 'group', true]],
+        ];
 	}
 }

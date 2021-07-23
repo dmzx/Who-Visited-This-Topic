@@ -18,7 +18,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -37,7 +37,7 @@ if (empty($lang) || !is_array($lang))
 // ‚ ‘ ’ « » „ “ ” …
 //
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'WHOVISITEDTHISTOPIC_TOPIC_SETTINGS'				=> 'Aktiviere „Wer besuchte dieses Thema“ in Themen',
 	'WHOVISITEDTHISTOPIC_TOPIC_SETTINGS_EXPLAIN'		=> 'Dies wird „Wer besuchte dieses Thema“ in der Themenansicht anzeigen.',
 	'WHOVISITEDTHISTOPIC_COUNT_SETTINGS'				=> 'Aktiviere den Themenzähler von „Wer besuchte dieses Thema“',
@@ -53,4 +53,4 @@ $lang = array_merge($lang, array(
 	'WHOVISITEDTHISTOPIC_DISABLED_TOPIC'				=> 'Deaktiviert, setze „Wer besuchte dieses Thema in Themen“ auf „Ja“, um einen Wert einzugeben',
 	'WHOVISITEDTHISTOPIC_DISABLED_MEMBERPAGE'			=> 'Deaktiviert, setze „Wer besuchte dieses Thema im Profil“ auf „Ja“, um einen Wert einzugeben',
 	'WHOVISITEDTHISTOPIC_SETTINGS_EXPLAIN'				=> 'Gehe zum <em><strong>Who Visited This Topic</strong></em>-Tab im Bereich der Gruppenrechte, um die Berechtigungen für jede Gruppe einzustellen.',
-));
+]);

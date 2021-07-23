@@ -17,7 +17,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -36,10 +36,10 @@ if (empty($lang) || !is_array($lang))
 // ’ « » “ ” …
 //
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'ACP_WHOVISITEDTHISTOPIC_TITLE'				=> 'Quem Visitou Este Tópico',
 	'ACP_WHOVISITEDTHISTOPIC_SETTINGS'			=> 'Configurações',
 	'ACP_WHOVISITEDTHISTOPIC_OPTIONS_SAVED'		=> 'Configurações de Quem Visitou Este Tópico salvas.',
 	// Log entries
 	'LOG_WHOVISITEDTHISTOPIC_UPDATE'			=> '<strong>Configurações de Quem Visitou Este Tópico salvas</strong>',
-));
+]);

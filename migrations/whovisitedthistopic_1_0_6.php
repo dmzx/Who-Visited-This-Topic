@@ -13,16 +13,16 @@ class whovisitedthistopic_1_0_6 extends \phpbb\db\migration\migration
 {
 	static public function depends_on()
 	{
-		return array(
+		return [
 			'\dmzx\whovisitedthistopic\migrations\whovisitedthistopic_1_0_5',
-		);
+        ];
 	}
 
 	public function update_data()
 	{
-		return array(
+		return [
 			// Update config
-			array('config.update', array('whovisitedthistopic_version', '1.0.6')),
-		);
+			['config.update', ['whovisitedthistopic_version', '1.0.6']],
+        ];
 	}
 }
