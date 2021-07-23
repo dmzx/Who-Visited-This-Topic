@@ -261,7 +261,7 @@ class listener implements EventSubscriberInterface
 					FORUMS_TABLE	=> 'ft',
 					TOPICS_TABLE	=> 'tt',
 					$this->whovisitedthistopic_table	=> 'wt',
-				],
+                ],
 				'WHERE' => 'tt.topic_moved_id = 0 AND tt.topic_visibility = 1 AND wt.user_id = ' . $user_id . '	AND wt.topic_id = tt.topic_id AND ft.forum_id = tt.forum_id',
 				'ORDER_BY'	=> 'wt.date DESC',
 			];
