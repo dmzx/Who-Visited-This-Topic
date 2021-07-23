@@ -1,6 +1,6 @@
 # Who Visited This Topic Extension
 
-[![Build Status](https://travis-ci.org/dmzx/Who-Visited-This-Topic.svg?branch=master)](https://travis-ci.org/dmzx/Who-Visited-This-Topic)
+[![Build Status](https://github.com/dmzx/Who-Visited-This-Topic/workflows/Tests/badge.svg)](https://github.com/phpbb-extensions/dmzx/Who-Visited-This-Topic)
 
 ## Install
 1. Download the latest release.
