@@ -9,7 +9,9 @@
 
 namespace dmzx\whovisitedthistopic\migrations;
 
-class whovisitedthistopic_1_0_8 extends \phpbb\db\migration\migration
+use phpbb\db\migration\migration;
+
+class whovisitedthistopic_1_0_8 extends migration
 {
 	static public function depends_on()
 	{

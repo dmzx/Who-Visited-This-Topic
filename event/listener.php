@@ -9,32 +9,42 @@
 
 namespace dmzx\whovisitedthistopic\event;
 
+use phpbb\auth\auth;
+use phpbb\cache\service;
+use phpbb\config\config;
+use phpbb\content_visibility;
+use phpbb\db\driver\driver_interface;
+use phpbb\pagination;
+use phpbb\request\request;
+use phpbb\request\request_interface;
+use phpbb\template\template;
+use phpbb\user;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class listener implements EventSubscriberInterface
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/* @var \phpbb\template\template */
+	/* @var template */
 	protected $template;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var driver_interface */
 	protected $db;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
-	/** @var \phpbb\request\request */
+	/** @var request */
 	protected $request;
 
-	/** @var \phpbb\content_visibility */
+	/** @var content_visibility */
 	protected $content_visibility;
 
-	/** @var \phpbb\cache\service */
+	/** @var service */
 	protected $cache;
 
-	/** @var \phpbb\pagination */
+	/** @var pagination */
 	protected $pagination;
 
 	/** @var string */
@@ -46,39 +56,39 @@ class listener implements EventSubscriberInterface
 	/** @var string */
 	protected $phpEx;
 
-	/** @var \phpbb\auth\auth */
+	/** @var auth */
 	protected $auth;
 
 	/**
 	* Constructor
 	*
-	* @param \phpbb\config\config				$config
-	* @param \phpbb\template\template			$template
-	* @param \phpbb\db\driver\driver_interface	$db
-	* @param \phpbb\user						$user
-	* @param \phpbb\request\request				$request
-	* @param \phpbb\content_visibility			$content_visibility
-	* @param \phpbb\cache\service				$cache
-	* @param \phpbb\pagination					$pagination
-	* @param string								$root_path
-	* @param string								$phpEx
-	* @param string								$whovisitedthistopic_table
-	* @param \phpbb\auth\auth					$auth
+	* @param config				    $config
+	* @param template			    $template
+	* @param driver_interface	    $db
+	* @param user					$user
+	* @param request				$request
+	* @param content_visibility		$content_visibility
+	* @param service				$cache
+	* @param pagination				$pagination
+	* @param string					$root_path
+	* @param string					$phpEx
+	* @param string					$whovisitedthistopic_table
+	* @param auth					$auth
 	*
 	*/
 	public function __construct(
-		\phpbb\config\config $config,
-		\phpbb\template\template $template,
-		\phpbb\db\driver\driver_interface $db,
-		\phpbb\user $user,
-		\phpbb\request\request $request,
-		\phpbb\content_visibility $content_visibility,
-		\phpbb\cache\service $cache,
-		\phpbb\pagination $pagination,
+		config $config,
+		template $template,
+		driver_interface $db,
+		user $user,
+		request $request,
+		content_visibility $content_visibility,
+		service $cache,
+		pagination $pagination,
 		$root_path,
 		$phpEx,
 		$whovisitedthistopic_table,
-		\phpbb\auth\auth $auth
+		auth $auth
 	)
 	{
 		$this->config 						= $config;
@@ -264,7 +274,7 @@ class listener implements EventSubscriberInterface
 			}
 			else if ($this->config['load_anon_lastread'] || $this->user->data['is_registered'])
 			{
-				$tracking_topics = $this->request->variable($this->config['cookie_name'] . '_track', '', true, \phpbb\request\request_interface::COOKIE);
+				$tracking_topics = $this->request->variable($this->config['cookie_name'] . '_track', '', true, request_interface::COOKIE);
 				$tracking_topics = $tracking_topics ? tracking_unserialize($tracking_topics) : [];
 			}
 			$sql_list_query = $this->db->sql_build_query('SELECT', $sql_list);
