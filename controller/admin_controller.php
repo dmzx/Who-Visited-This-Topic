@@ -39,10 +39,10 @@ class admin_controller
 	 * Constructor
 	 *
 	 * @param config				$config
-	 * @param template			    $template
+	 * @param template				$template
 	 * @param log_interface			$log
 	 * @param user					$user
-	 * @param request			    $request
+	 * @param request				$request
 	 */
 	public function __construct(
 		config $config,
@@ -50,7 +50,7 @@ class admin_controller
 		log_interface $log,
 		user $user,
 		request $request
-    )
+	)
 	{
 		$this->config 			= $config;
 		$this->template 		= $template;

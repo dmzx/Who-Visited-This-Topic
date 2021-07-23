@@ -62,9 +62,9 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*
-	* @param config				    $config
-	* @param template			    $template
-	* @param driver_interface	    $db
+	* @param config					$config
+	* @param template				$template
+	* @param driver_interface		$db
 	* @param user					$user
 	* @param request				$request
 	* @param content_visibility		$content_visibility
