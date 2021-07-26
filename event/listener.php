@@ -177,8 +177,8 @@ class listener implements EventSubscriberInterface
 				$date = time();
 				$sql_arr = [
 					'counter_user'	=> 1,
-					'user_id'		=> $user_id,
-					'topic_id'		=> $topic_id,
+					'user_id'		=> (int) $user_id,
+					'topic_id'		=> (int) $topic_id,
 					'date'			=> $date
 				];
 
@@ -203,7 +203,7 @@ class listener implements EventSubscriberInterface
 				$username = $row['username'];
 				$user_colour = ($row['user_colour']) ? ' style="color:#' . $row['user_colour'] . '" class="username-coloured"' : '';
 				$user_id = $row['user_id'];
-				$date = ($row['date']) ? ' title="' .	$this->user->format_date($row['date']) . ' ': '';
+				$date = ($row['date']) ? ' title="' . $this->user->format_date($row['date']) . ' ': '';
 				$avatar = phpbb_get_user_avatar($row);
 
 				if ($this->auth->acl_get('u_whovisitedthistopic_count'))
