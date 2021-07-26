@@ -262,12 +262,12 @@ class listener implements EventSubscriberInterface
 					TOPICS_TABLE	=> 'tt',
 					$this->whovisitedthistopic_table	=> 'wt',
                 ],
-				'WHERE' => 'tt.topic_moved_id = 0
-				    AND tt.topic_visibility = 1
-				    AND wt.user_id = ' . (int) $user_id . '
-				    AND wt.topic_id = tt.topic_id
-				    AND ft.forum_id = tt.forum_id',
-				'ORDER_BY'	=> 'wt.date DESC',
+                'WHERE' => 'tt.topic_moved_id = 0
+			        AND tt.topic_visibility = 1
+			        AND wt.user_id = ' . (int) $user_id . '
+			        AND wt.topic_id = tt.topic_id
+			        AND ft.forum_id = tt.forum_id',
+                'ORDER_BY'	=> 'wt.date DESC',
 			];
 
 			if ($this->user->data['is_registered'] && $this->config['load_db_lastread'])
