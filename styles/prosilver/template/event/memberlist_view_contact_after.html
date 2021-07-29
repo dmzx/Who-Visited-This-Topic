@@ -15,7 +15,7 @@
 		{% for whovisitedthistopic in loops.whovisitedthistopic %}
 			<li class="row{% if whovisitedthistopic.S_ROW_COUNT is even %} bg1{% else %} bg2{% endif %}">
 				<dl class="row-item {{ whovisitedthistopic.TOPIC_IMG_STYLE }}">
-					<dt {% if whovisitedthistopic.TOPIC_ICON_IMG %}style="background-image: url({{ T_ICONS_PATH }}{{ whovisitedthistopic.TOPIC_ICON_IMG }}); background-repeat: no-repeat;"{% endif %} title="{{ whovisitedthistopic.TOPIC_FOLDER_IMG_ALT }}">
+					<dt {% if whovisitedthistopic.TOPIC_ICON_IMG %}style="background-image: url({{ T_ICONS_PATH ~ whovisitedthistopic.TOPIC_ICON_IMG }}); background-repeat: no-repeat;"{% endif %} title="{{ whovisitedthistopic.TOPIC_FOLDER_IMG_ALT }}">
 						{% if whovisitedthistopic.S_UNREAD_TOPIC and not S_IS_BOT %}<a href="{{ whovisitedthistopic.U_NEWEST_POST }}" class="row-item-link"></a>{% endif %}
 						<div class="list-inner">
 							{% if whovisitedthistopic.S_UNREAD_TOPIC and not S_IS_BOT %}
@@ -42,7 +42,7 @@
 								<br>{{ lang('POSTED') }} {{ lang('IN') }} <a href="{{ whovisitedthistopic.U_VIEW_FORUM }}">{{ whovisitedthistopic.FORUM_TITLE }}</a>
 							</div>
 								{% if whovisitedthistopic.TOPIC_REPLIES %}
-								<span class="responsive-show left-box" style="display: none;">{{ lang('REPLIES') }}{{ lang('COLON') }} <strong>{{ whovisitedthistopic.TOPIC_REPLIES }}</strong></span>
+								<span class="responsive-show left-box" style="display: none;">{{ lang('REPLIES') ~ lang('COLON') }} <strong>{{ whovisitedthistopic.TOPIC_REPLIES }}</strong></span>
 								{% endif %}
 							{% endif %}
 
