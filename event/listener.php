@@ -151,6 +151,9 @@ class listener implements EventSubscriberInterface
 
 		if (($this->user->data['user_id'] != ANONYMOUS) && (!$this->user->data['is_bot']) && $this->config['whovisitedthistopic_allow_topics'])
 		{
+			// Get the excluded members arrays
+			$whovisitedthistopic_members = json_decode($this->config['whovisitedthistopic_members']);
+
 			$sql = 'SELECT *
 				FROM ' . $this->whovisitedthistopic_table . '
 				WHERE user_id = ' . (int) $user_id . '
@@ -170,6 +173,11 @@ class listener implements EventSubscriberInterface
 					SET	' . $this->db->sql_build_array('UPDATE', $sql_arr) . '
 					WHERE user_id = ' . (int) $user_id . '
 						AND topic_id = ' . (int) $topic_id;
+
+					if (!empty($whovisitedthistopic_members))
+					{
+						$sql_insert .= ' AND ' . $this->db->sql_in_set('user_id', $whovisitedthistopic_members, true);
+					}
 				$this->db->sql_query($sql_insert);
 			}
 			else
@@ -190,12 +198,21 @@ class listener implements EventSubscriberInterface
 
 		if ($this->auth->acl_get('u_whovisitedthistopic') && $this->config['whovisitedthistopic_allow_topics'])
 		{
+			// Get the excluded members arrays
+			$whovisitedthistopic_members = json_decode($this->config['whovisitedthistopic_members']);
+
 			$query = 'SELECT w.user_id, w.topic_id, w.counter_user, w.date, u.username, u.user_colour, u.user_id, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, u.user_type, SUM(w.counter_user) AS total
 				FROM ' . $this->whovisitedthistopic_table . ' w, ' . USERS_TABLE . ' u
 				WHERE w.topic_id = ' . (int) $topic_id . '
-					AND w.user_id = u.user_id
-				GROUP BY w.user_id
-				ORDER BY w.date DESC';
+					AND w.user_id = u.user_id';
+
+			if (!empty($whovisitedthistopic_members))
+			{
+				$query .= ' AND ' . $this->db->sql_in_set('w.user_id', $whovisitedthistopic_members, true);
+			}
+
+			$query .= ' GROUP BY w.user_id';
+			$query .= ' ORDER BY w.date DESC';
 			$row_query = $this->db->sql_query_limit($query, $value);
 
 			while ($row = $this->db->sql_fetchrow($row_query))

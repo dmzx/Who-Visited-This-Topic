@@ -9,6 +9,8 @@ services:
             - '@log'
             - '@user'
             - '@request'
+            - '%core.root_path%'
+            - '%core.php_ext%'
     dmzx.whovisitedthistopic.listener:
         class: 'dmzx\whovisitedthistopic\event\listener'
         arguments:

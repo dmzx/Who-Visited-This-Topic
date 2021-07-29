@@ -52,4 +52,6 @@ $lang = array_merge($lang, [
 	'WHOVISITEDTHISTOPIC_DISABLED_TOPIC'				=> 'Disabled set “Enable Who Visited This Topic in topics” to Yes to enter value',
 	'WHOVISITEDTHISTOPIC_DISABLED_MEMBERPAGE'			=> 'Disabled set “Enable Who Visited This Topic in profile” to Yes to enter value',
 	'WHOVISITEDTHISTOPIC_SETTINGS_EXPLAIN'				=> 'Go to the <em><strong>Who Visited This Topic</strong></em> tab in Group permissions section to adjust permissions for each group.',
+	'WHOVISITEDTHISTOPIC_MEMBERS'						=> 'Exclude members',
+	'WHOVISITEDTHISTOPIC_MEMBERS_EXPLAIN'				=> 'Here you can manage the users that you want to exclude (don’t see them) or remove them from the exclude list.<br><strong>Note:</strong> Each user in a new line.',
 ]);

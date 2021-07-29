@@ -25,6 +25,15 @@ class whovisitedthistopic_1_0_8 extends migration
 		return [
 			// Update config
 			['config.update', ['whovisitedthistopic_version', '1.0.8']],
+			// Add config
+			['config.add', ['whovisitedthistopic_members', $this->serialize_to_json('whovisitedthistopic_members')]],
 		];
+	}
+
+	public function serialize_to_json($cfg)
+	{
+		$data = unserialize(trim($this->config[$cfg]));
+
+		return $data ? json_encode($data) : '';
 	}
 }

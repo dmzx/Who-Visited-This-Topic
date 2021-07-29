@@ -20,7 +20,7 @@
 		<legend>{{ lang('ACP_WHOVISITEDTHISTOPIC_SETTINGS') }}</legend>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_allow_topics">{{ lang('WHOVISITEDTHISTOPIC_TOPIC_SETTINGS') }}{{ lang('COLON') }}</label><br />
+				<label for="whovisitedthistopic_allow_topics">{{ lang('WHOVISITEDTHISTOPIC_TOPIC_SETTINGS') }}{{ lang('COLON') }}</label><br>
 				<span>{{ lang('WHOVISITEDTHISTOPIC_TOPIC_SETTINGS_EXPLAIN') }}</span>
 			</dt>
 			<dd>
@@ -30,14 +30,14 @@
 		</dl>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_value">{{ lang('WHOVISITEDTHISTOPIC_SETTING') }}{{ lang('COLON') }}</label><br />
+				<label for="whovisitedthistopic_value">{{ lang('WHOVISITEDTHISTOPIC_SETTING') }}{{ lang('COLON') }}</label><br>
 				<span>{{ lang('WHOVISITEDTHISTOPIC_SETTING_EXPLAIN') }}</span>
 			</dt>
 			<dd><input type="number" id="whovisitedthistopic_value"	name="whovisitedthistopic_value" {% if not WHOVISITEDTHISTOPIC_ALLOW_TOPICS %}title="{{ lang('WHOVISITEDTHISTOPIC_DISABLED_TOPIC') }}"	checked="checked" disabled{% endif %} size="3" maxlength="3" min="2" max="255" value="{{ WHOVISITEDTHISTOPIC_SETTING }}" /></dd>
 		</dl>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_allow_memberpage">{{ lang('WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS') }}{{ lang('COLON') }}</label><br />
+				<label for="whovisitedthistopic_allow_memberpage">{{ lang('WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS') }}{{ lang('COLON') }}</label><br>
 				<span>{{ lang('WHOVISITEDTHISTOPIC_MEMBERPAGE_SETTINGS_EXPLAIN') }}</span>
 			</dt>
 			<dd>
@@ -47,14 +47,14 @@
 		</dl>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_visit_value">{{ lang('WHOVISITEDTHISTOPIC_VISIT_SETTING') }}{{ lang('COLON') }}</label><br />
+				<label for="whovisitedthistopic_visit_value">{{ lang('WHOVISITEDTHISTOPIC_VISIT_SETTING') }}{{ lang('COLON') }}</label><br>
 				<span>{{ lang('WHOVISITEDTHISTOPIC_VISIT_SETTING_EXPLAIN') }}</span>
 			</dt>
 			<dd><input type="number" id="whovisitedthistopic_visit_value"	name="whovisitedthistopic_visit_value" {% if not WHOVISITEDTHISTOPIC_ALLOW_MEMBERPAGE %}title="{{ lang('WHOVISITEDTHISTOPIC_DISABLED_MEMBERPAGE') }}"	checked="checked" disabled{% endif %} size="3" maxlength="3" min="2" max="255" value="{{ WHOVISITEDTHISTOPIC_VISIT_SETTING }}" /></dd>
 		</dl>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_allow_count">{{ lang('WHOVISITEDTHISTOPIC_COUNT_SETTINGS') }}{{ lang('COLON') }}</label><br />
+				<label for="whovisitedthistopic_allow_count">{{ lang('WHOVISITEDTHISTOPIC_COUNT_SETTINGS') }}{{ lang('COLON') }}</label><br>
 				<span>{{ lang('WHOVISITEDTHISTOPIC_COUNT_SETTINGS_EXPLAIN') }}</span>
 			</dt>
 			<dd>
@@ -64,12 +64,21 @@
 		</dl>
 		<dl>
 			<dt>
-				<label for="whovisitedthistopic_show_avatar">{{ lang('WHOVISITEDTHISTOPIC_SHOW_AVATAR') }}{{ lang('COLON') }}</label><br />
+				<label for="whovisitedthistopic_show_avatar">{{ lang('WHOVISITEDTHISTOPIC_SHOW_AVATAR') }}{{ lang('COLON') }}</label><br>
 				<span>{{ lang('WHOVISITEDTHISTOPIC_SHOW_AVATAR_EXPLAIN') }}</span>
 			</dt>
 			<dd>
 				<label><input type="radio" id="whovisitedthistopic_show_avatar" class="radio" name="whovisitedthistopic_show_avatar" value="1"{% if WHOVISITEDTHISTOPIC_SHOW_AVATAR %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
 				<label><input type="radio" class="radio" name="whovisitedthistopic_show_avatar" value="0"{% if not WHOVISITEDTHISTOPIC_SHOW_AVATAR %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
+		<dl>
+			<dt>
+				<label for="whovisitedthistopic_members">{{ lang('WHOVISITEDTHISTOPIC_MEMBERS') ~ lang('COLON') }}</label><br>
+				<span>{{ lang('WHOVISITEDTHISTOPIC_MEMBERS_EXPLAIN') }}</span>
+			</dt>
+			<dd>
+				<textarea id="whovisitedthistopic_members" name="whovisitedthistopic_members" rows="10" cols="20">{{ WHOVISITEDTHISTOPIC_MEMBERS }}</textarea>
 			</dd>
 		</dl>
 	</fieldset>
