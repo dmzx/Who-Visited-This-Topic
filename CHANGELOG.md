@@ -1,5 +1,9 @@
 ## Who Visited This Topic Changelog
 
+### 1.0.9 - 2023-02-24
+
+- Added exclude option in ACP for profile view.
+
 ### 1.0.8 - 2021-07-29
 
 - Delete loader image in ACP.

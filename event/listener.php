@@ -272,6 +272,9 @@ class listener implements EventSubscriberInterface
 
 		if ($this->auth->acl_get('u_whovisitedthistopic_profile') && $this->config['whovisitedthistopic_allow_memberpage'])
 		{
+			// Get the excluded members arrays
+			$whovisitedthistopic_members_profile = json_decode($this->config['whovisitedthistopic_members_profile']);
+
 			$sql_list = [
 				'SELECT'	=> 'ft.*, tt.*, wt.*',
 				'FROM'		=> [
@@ -286,6 +289,11 @@ class listener implements EventSubscriberInterface
 					AND ft.forum_id = tt.forum_id',
 				'ORDER_BY'	=> 'wt.date DESC',
 			];
+
+			if (!empty($whovisitedthistopic_members_profile))
+			{
+				$sql_list['WHERE'] .= ' AND ' . $this->db->sql_in_set('wt.user_id', $whovisitedthistopic_members_profile, true);
+			}
 
 			if ($this->user->data['is_registered'] && $this->config['load_db_lastread'])
 			{
